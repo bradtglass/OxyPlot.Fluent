@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+    <PropertyGroup>
+        <TargetFrameworks>netcoreapp3.1;net45</TargetFrameworks>
+        <UseWpf>true</UseWpf>
+        <LangVersion>9</LangVersion>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="OxyPlot.Wpf" Version="2014.1.546" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\OxyPlot.Fluent\OxyPlot.Fluent.csproj" />
+    </ItemGroup>
+
+</Project>
