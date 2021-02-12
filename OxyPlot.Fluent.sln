@@ -3,6 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OxyPlot.Fluent", "src\OxyPlot.Fluent\OxyPlot.Fluent.csproj", "{E3366168-789F-4538-B3D5-E22CA9EE39A9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{DE8D5B9B-818E-448E-927C-3927B82B88C1}"
+ProjectSection(SolutionItems) = preProject
+	src\directory.build.props = src\directory.build.props
+EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sample", "sample", "{155291BF-1916-4D75-8583-0765273C2067}"
 EndProject

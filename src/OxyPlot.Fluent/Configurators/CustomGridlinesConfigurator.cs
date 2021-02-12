@@ -7,7 +7,5 @@ namespace OxyPlot.Fluent.Configurators
     public class CustomGridlinesConfigurator : LineConfigurator
     {
         public IReadOnlyList<double>? Ticks { get; set; }
-
-        public IReadOnlyList<string>? TickLabels { get; set; }
     }
 }

@@ -1,12 +1,15 @@
-﻿using System;
-using System.Windows;
-using OxyPlot.Fluent.Configurators;
+﻿using System.Windows;
+using JetBrains.Annotations;
 
 namespace OxyPlot.Fluent.Wpf
 {
+    [PublicAPI]
     public static class WpfExtensions
     {
-        public static Window Show(this FigureConfigurator figure)
-            => throw new NotImplementedException();
+        public static Window AsWindow(this Figure figure)
+            => new FigureWindow
+            {
+                DataContext = figure
+            };
     }
 }

@@ -52,7 +52,12 @@ namespace OxyPlot.Fluent
 
             return plot;
         }
-        
-        
+
+        /// <summary>
+        /// Creates a new plot at 0, 0 in the grid.
+        /// </summary>
+        /// <param name="figure">The figure to configure.</param>
+        public static PlotConfigurator WithPlot(this FigureConfigurator figure)
+            => figure.WithPlot(0, 0);
     }
 }

@@ -3,9 +3,9 @@
 namespace OxyPlot.Fluent.Configurators
 {
     [PublicAPI]
-    public class SeriesConfigurator : IFluentInterface
+    public abstract class SeriesConfigurator : IFluentInterface
     {
-        public SeriesConfigurator(PlotConfigurator plot)
+        protected SeriesConfigurator(PlotConfigurator plot)
         {
             Plot = plot;
         }
@@ -17,5 +17,7 @@ namespace OxyPlot.Fluent.Configurators
         public bool UseSecondaryXAxis { get; set; }
 
         public string? Title { get; set; }
+
+        public abstract Series.Series Build();
     }
 }
