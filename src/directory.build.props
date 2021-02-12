@@ -14,6 +14,6 @@
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="OxyPlot.Core" Version="2014.1.546" />
+        <PackageReference Include="OxyPlot.Core" Version="2.0.0" />
     </ItemGroup>
 </Project>
