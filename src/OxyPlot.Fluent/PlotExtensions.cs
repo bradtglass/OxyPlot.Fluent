@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
 using OxyPlot.Fluent.Configurators;
@@ -9,11 +10,11 @@ namespace OxyPlot.Fluent
     public static class PlotExtensions
     {
         /// <summary>
-        /// Sets the title of the plot.
+        ///     Sets the title of the plot.
         /// </summary>
         /// <param name="plot">The plot to configure.</param>
         /// <param name="title">The new title.</param>
-        public static PlotConfigurator WithTitle(this PlotConfigurator plot,string? title)
+        public static PlotConfigurator WithTitle(this PlotConfigurator plot, string? title)
         {
             plot.Title = title;
 
@@ -21,54 +22,81 @@ namespace OxyPlot.Fluent
         }
 
         /// <summary>
-        /// Adds a <see cref="Series.LineSeries"/> to the plot.
+        ///     Adds a <see cref="Series.LineSeries" /> to the plot.
         /// </summary>
         /// <param name="plot">The plot to configure.</param>
         /// <param name="points">The data for the series.</param>
-        public static LineSeriesConfigurator WithLine(this PlotConfigurator plot, IEnumerable<DataPoint> points)
+        /// <param name="configure">Configures the line.</param>
+        public static PlotConfigurator WithLine(this PlotConfigurator plot, IEnumerable<DataPoint> points,
+            Action<LineSeriesConfigurator>? configure = null)
         {
-            LineSeriesConfigurator lineSeries = new(plot, points);
-            
+            LineSeriesConfigurator lineSeries = new(points);
+
             plot.Series.Add(lineSeries);
 
-            return lineSeries;
+            configure?.Invoke(lineSeries);
+
+            return plot;
         }
 
         /// <summary>
-        /// Gets the specified axis.
+        ///     Gets the specified axis.
         /// </summary>
         /// <param name="plot">The plot to configure.</param>
         /// <param name="direction">The axis direction.</param>
         /// <param name="secondary">Indicates if the secondary axis should be retrieved.</param>
-        /// <returns></returns>
-        public static AxisConfigurator Axis(this PlotConfigurator plot, AxisDirection direction, bool secondary = false)
+        /// <param name="configure">Configures the axis.</param>
+        public static PlotConfigurator WithAxis(this PlotConfigurator plot, AxisDirection direction, bool secondary,
+            Action<AxisConfigurator>? configure = null)
         {
             AxisConfigurator? axis = plot.Axes
                 .FirstOrDefault(a => a.Direction == direction && a.IsSecondary == secondary);
 
             if (axis == null)
             {
-                axis = new AxisConfigurator(plot, direction, secondary);
+                axis = new AxisConfigurator(direction, secondary);
                 plot.Axes.Add(axis);
             }
 
-            return axis;
+            configure?.Invoke(axis);
+
+            return plot;
         }
 
         /// <summary>
-        /// Gets the x-axis.
+        ///     Gets the x-axis.
         /// </summary>
         /// <param name="plot">The plot to configure.</param>
         /// <param name="secondary">Indicates if the secondary axis should be retrieved.</param>
-        public static AxisConfigurator XAxis(this PlotConfigurator plot, bool secondary = false)
-            => plot.Axis(AxisDirection.X, secondary);
-        
+        /// <param name="configure">Configures the axis.</param>
+        public static PlotConfigurator WithXAxis(this PlotConfigurator plot, bool secondary,
+            Action<AxisConfigurator>? configure = null)
+            => plot.WithAxis(AxisDirection.X, secondary, configure);
+
         /// <summary>
-        /// Gets the y-axis.
+        ///     Gets the y-axis.
         /// </summary>
         /// <param name="plot">The plot to configure.</param>
         /// <param name="secondary">Indicates if the secondary axis should be retrieved.</param>
-        public static AxisConfigurator YAxis(this PlotConfigurator plot, bool secondary = false)
-            => plot.Axis(AxisDirection.Y, secondary);
+        /// <param name="configure">Configures the axis.</param>
+        public static PlotConfigurator WithYAxis(this PlotConfigurator plot, bool secondary,
+            Action<AxisConfigurator>? configure = null)
+            => plot.WithAxis(AxisDirection.Y, secondary, configure);
+
+        /// <summary>
+        ///     Gets the primary x-axis.
+        /// </summary>
+        /// <param name="plot">The plot to configure.</param>
+        /// <param name="configure">Configures the axis.</param>
+        public static PlotConfigurator WithXAxis(this PlotConfigurator plot, Action<AxisConfigurator>? configure = null)
+            => plot.WithXAxis(false, configure);
+
+        /// <summary>
+        ///     Gets the primary y-axis.
+        /// </summary>
+        /// <param name="plot">The plot to configure.</param>
+        /// <param name="configure">Configures the axis.</param>
+        public static PlotConfigurator WithYAxis(this PlotConfigurator plot, Action<AxisConfigurator>? configure = null)
+            => plot.WithYAxis(false, configure);
     }
 }

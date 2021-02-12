@@ -8,9 +8,8 @@ namespace OxyPlot.Fluent.Configurators
     [PublicAPI]
     public class AxisConfigurator : IFluentInterface
     {
-        public AxisConfigurator(PlotConfigurator plot, AxisDirection direction, bool isSecondary)
+        public AxisConfigurator(AxisDirection direction, bool isSecondary)
         {
-            Plot = plot;
             Direction = direction;
             IsSecondary = isSecondary;
         }
@@ -18,8 +17,6 @@ namespace OxyPlot.Fluent.Configurators
         public AxisDirection Direction { get; }
 
         public bool IsSecondary { get; }
-
-        public PlotConfigurator Plot { get; }
 
         public double? Minimum { get; set; }
 

@@ -13,11 +13,9 @@ namespace WpfSample
         private static void Main(string[] args)
         {
             Window window = Figure.Configure()
-                .WithPlot()
-                .WithTitle("Sample Plot")
-                .WithLine(GetData())
-                .Plot
-                .Figure
+                .WithPlot(p => p
+                    .WithTitle("Sample Plot")
+                    .WithLine(GetData()))
                 .Build()
                 .AsWindow();
 

@@ -18,6 +18,6 @@ namespace OxyPlot.Fluent
         public string? Title { get; }
 
         public static PlotConfigurator Configure()
-            => new(new FigureConfigurator());
+            => new();
     }
 }

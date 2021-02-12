@@ -2,16 +2,14 @@
 An unofficial extension library for OxyPlot to create plots using a fluent API.
 
 ## This library is still in development. For a flavour of what the aim is, take a look at the first test sample below
-```csharp
+```c#
 [STAThread]
 private static void Main(string[] args)
 {
     Window window = Figure.Configure()
-        .WithPlot()
-        .WithTitle("Sample Plot")
-        .WithLine(GetData())
-        .Plot
-        .Figure
+        .WithPlot(p => p
+            .WithTitle("Sample Plot")
+            .WithLine(GetData()))
         .Build()
         .AsWindow();
 

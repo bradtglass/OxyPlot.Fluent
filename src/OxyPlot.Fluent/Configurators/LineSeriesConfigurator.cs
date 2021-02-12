@@ -7,7 +7,7 @@ namespace OxyPlot.Fluent.Configurators
     [PublicAPI]
     public class LineSeriesConfigurator : SeriesConfigurator
     {
-        public LineSeriesConfigurator(PlotConfigurator plot, IEnumerable<DataPoint> data) : base(plot)
+        public LineSeriesConfigurator(IEnumerable<DataPoint> data)
         {
             Data = data;
         }
@@ -21,10 +21,7 @@ namespace OxyPlot.Fluent.Configurators
         public override Series.Series Build()
         {
             LineSeries series = new();
-            foreach (DataPoint point in Data)
-            {
-                series.Points.Add(point);
-            }
+            foreach (DataPoint point in Data) series.Points.Add(point);
 
             ConfiguratorHelper.SetIfNotNull(Line.Colour, c => series.Color = c);
             ConfiguratorHelper.SetIfNotNull(Line.Thickness, t => series.StrokeThickness = t);
