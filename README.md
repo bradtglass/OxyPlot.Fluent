@@ -1,7 +1,7 @@
 # OxyPlot.Fluent
 An unofficial extension library for [OxyPlot](https://github.com/oxyplot/oxyplot) to create plots using a fluent API.
 
-## This library is still in development.
+## ⚠ This library is still in development ⚠
 The aim is not to cover all of OxyPlot's functionality with the API, there are too many different options and configurations possible. I'm purely aiming to eliminate some of the boilerplate/extra work that can go along with generating plots especially when testing a proof of concept.
 
 This started off when I needed to convert some legacy code from MATLAB to .NET. In MATLAB I could just call `plot(x, y)` but I couldn't find anything slightly similar for .NET... so I decided to build something.
