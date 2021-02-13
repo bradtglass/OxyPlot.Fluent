@@ -2,18 +2,30 @@
     <PropertyGroup>
         <LangVersion>9</LangVersion>
         <Nullable>enable</Nullable>
+
+        <Authors>BradGlass</Authors>
+        <RepositoryType>git</RepositoryType>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <CommonPackageTags>Plotting;Plot;Charting;Chart;Fluent;$(AdditionalPackageTags)</CommonPackageTags>
+        <PackageTags>$(CommonPackageTags)</PackageTags>
+        <CommonDescription>
+            An unofficial extension library for OxyPlot to create plots using a fluent API.
+            
+            These libraries expose simple set of extensions methods for configuring a subset of Oxyplot functionality to produce plots and figures really quickly, no windows or view models required.
+        </CommonDescription>
+
+        <PublishRepositoryUrl>true</PublishRepositoryUrl>
+        <IncludeSymbols>true</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="IsExternalInit" Version="1.0.0">
-            <PrivateAssets>all</PrivateAssets>
-            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-        </PackageReference>
-        <PackageReference Include="JetBrains.Annotations" Version="2020.3.0" PrivateAssets="all" />
-        <PackageReference Include="Nullable" Version="1.3.0">
-            <PrivateAssets>all</PrivateAssets>
-            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-        </PackageReference>
+        <PackageReference Include="IsExternalInit" Version="1.0.0" PrivateAssets="All"/>
+        <PackageReference Include="JetBrains.Annotations" Version="2020.3.0" PrivateAssets="All"/>
+        <PackageReference Include="Nullable" Version="1.3.0" PrivateAssets="All"/>
+        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All"/>
+        
         <PackageReference Include="OxyPlot.Core" Version="2.0.0" />
     </ItemGroup>
 </Project>

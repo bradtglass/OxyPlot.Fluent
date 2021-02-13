@@ -2,6 +2,13 @@
     <PropertyGroup>
         <TargetFrameworks>netcoreapp3.1;net45</TargetFrameworks>
         <UseWpf>true</UseWpf>
+
+        <PackageTags>$(CommonPackageTags);WPF</PackageTags>
+
+        <Description>
+            $(CommonDescription)
+            This library contains the functionality for creating views and view models in WPF.
+        </Description>
     </PropertyGroup>
 
     <ItemGroup>
@@ -11,5 +18,4 @@
     <ItemGroup>
       <ProjectReference Include="..\OxyPlot.Fluent\OxyPlot.Fluent.csproj" />
     </ItemGroup>
-
 </Project>

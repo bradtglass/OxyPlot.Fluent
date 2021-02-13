@@ -16,7 +16,12 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{99B6439A-D7F5-44B8-87BA-EE85882F4DDD}"
 ProjectSection(SolutionItems) = preProject
 	README.md = README.md
+	NuGet.Config = NuGet.Config
 EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "_build", "build\_build.csproj", "{4D4A4475-77AE-4EDD-9BEE-018CCA9CEA7B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{3EEB659F-25E5-42A7-97F9-A262B78750A8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,6 +29,8 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4D4A4475-77AE-4EDD-9BEE-018CCA9CEA7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D4A4475-77AE-4EDD-9BEE-018CCA9CEA7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E3366168-789F-4538-B3D5-E22CA9EE39A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E3366168-789F-4538-B3D5-E22CA9EE39A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E3366168-789F-4538-B3D5-E22CA9EE39A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -41,5 +48,6 @@ Global
 		{E3366168-789F-4538-B3D5-E22CA9EE39A9} = {DE8D5B9B-818E-448E-927C-3927B82B88C1}
 		{FEEEFE96-F3AA-418C-A8A4-33BD5658509F} = {DE8D5B9B-818E-448E-927C-3927B82B88C1}
 		{A85840FD-B0C7-4A84-8F9C-C303658C27C0} = {155291BF-1916-4D75-8583-0765273C2067}
+		{4D4A4475-77AE-4EDD-9BEE-018CCA9CEA7B} = {3EEB659F-25E5-42A7-97F9-A262B78750A8}
 	EndGlobalSection
 EndGlobal
