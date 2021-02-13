@@ -7,7 +7,7 @@ namespace OxyPlot.Fluent.Configurators
     ///     Configuration options for <see cref="Axis.ExtraGridlines" />.
     /// </summary>
     [PublicAPI]
-    public sealed class CustomGridlinesConfigurator : LineConfigurator
+    public sealed class ExtraGridlinesConfigurator : LineConfigurator
     {
         /// <summary>
         ///     The value to set <see cref="Axis.ExtraGridlines" /> to or <see langword="null" /> to skip configuring this

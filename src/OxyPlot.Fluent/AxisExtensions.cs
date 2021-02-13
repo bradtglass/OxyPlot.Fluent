@@ -114,16 +114,16 @@ namespace OxyPlot.Fluent
         }
 
         /// <summary>
-        ///     Sets the custom gridlines for the axis.
+        ///     Sets the extra gridlines for the axis.
         /// </summary>
         /// <param name="axis">The axis to configure.</param>
         /// <param name="configure">Configures the gridlines.</param>
-        public static AxisConfigurator WithCustomGridlines(this AxisConfigurator axis,
-            Action<CustomGridlinesConfigurator>? configure = null)
+        public static AxisConfigurator WithExtraGridlines(this AxisConfigurator axis,
+            Action<ExtraGridlinesConfigurator>? configure = null)
         {
-            axis.CustomGridlines ??= new CustomGridlinesConfigurator();
+            axis.ExtraGridlines ??= new ExtraGridlinesConfigurator();
 
-            configure?.Invoke(axis.CustomGridlines);
+            configure?.Invoke(axis.ExtraGridlines);
 
             return axis;
         }

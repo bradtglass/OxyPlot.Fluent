@@ -69,7 +69,7 @@ namespace OxyPlot.Fluent.Configurators
         ///     The configuration for the <see cref="Axis.ExtraGridlines" /> or <see langword="null" /> to skip configuration for
         ///     it.
         /// </summary>
-        public CustomGridlinesConfigurator? CustomGridlines { get; set; }
+        public ExtraGridlinesConfigurator? ExtraGridlines { get; set; }
 
         /// <summary>
         ///     The value to set <see cref="Axis.TickStyle" /> to or <see langword="null" /> to skip configuring this property.
@@ -110,13 +110,13 @@ namespace OxyPlot.Fluent.Configurators
                     (l, s) => l.MinorTickSize = s,
                     (l, s) => l.MinorStep = s);
 
-            if (CustomGridlines != null)
-                ConfigureCustomGridlines(axis, CustomGridlines);
+            if (ExtraGridlines != null)
+                ConfigureExtraGridlines(axis, ExtraGridlines);
 
             return axis;
         }
 
-        private void ConfigureCustomGridlines(LinearAxis axis, CustomGridlinesConfigurator gridlines)
+        private void ConfigureExtraGridlines(LinearAxis axis, ExtraGridlinesConfigurator gridlines)
         {
             ConfigureLine(axis, gridlines,
                 (a, c) => a.ExtraGridlineColor = c,
