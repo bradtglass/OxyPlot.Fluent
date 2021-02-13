@@ -130,22 +130,22 @@ namespace OxyPlot.Fluent.Configurators
         }
 
         private void ConfigureTicks(LinearAxis axis, AxisTickConfigurator ticks,
-            Action<LinearAxis, OxyColor> gridColourSetter,
+            Action<LinearAxis, OxyColor> gridColorSetter,
             Action<LinearAxis, double> gridThicknessSetter,
             Action<LinearAxis, LineStyle> gridStyleSetter,
             Action<LinearAxis, double> tickSizeSetter,
             Action<LinearAxis, double> tickStepSetter)
         {
-            ConfigureLine(axis, ticks, gridColourSetter, gridThicknessSetter, gridStyleSetter);
+            ConfigureLine(axis, ticks, gridColorSetter, gridThicknessSetter, gridStyleSetter);
             ConfiguratorHelper.SetIfNotNull(ticks.TickSize, s => tickSizeSetter(axis, s));
             ConfiguratorHelper.SetIfNotNull(ticks.Step, s => tickStepSetter(axis, s));
         }
 
         private void ConfigureLine(LinearAxis axis, LineConfigurator line,
-            Action<LinearAxis, OxyColor> gridColourSetter,
+            Action<LinearAxis, OxyColor> gridColorSetter,
             Action<LinearAxis, double> gridThicknessSetter, Action<LinearAxis, LineStyle> gridStyleSetter)
         {
-            ConfiguratorHelper.SetIfNotNull(line.Colour, c => gridColourSetter(axis, c));
+            ConfiguratorHelper.SetIfNotNull(line.Color, c => gridColorSetter(axis, c));
             ConfiguratorHelper.SetIfNotNull(line.Thickness, t => gridThicknessSetter(axis, t));
             ConfiguratorHelper.SetIfNotNull(line.Style, s => gridStyleSetter(axis, s));
         }

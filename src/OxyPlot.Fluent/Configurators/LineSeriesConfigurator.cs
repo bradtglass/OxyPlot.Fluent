@@ -44,7 +44,7 @@ namespace OxyPlot.Fluent.Configurators
 
             if (Line != null)
             {
-                ConfiguratorHelper.SetIfNotNull(Line.Colour, c => series.Color = c);
+                ConfiguratorHelper.SetIfNotNull(Line.Color, c => series.Color = c);
                 ConfiguratorHelper.SetIfNotNull(Line.Thickness, t => series.StrokeThickness = t);
                 ConfiguratorHelper.SetIfNotNull(Line.Style, s => series.LineStyle = s);
             }

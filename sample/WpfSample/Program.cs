@@ -26,7 +26,7 @@ namespace WpfSample
                             .SetStrokeThickness(2))
                         .WithLine(l => l
                             .SetStyle(LineStyle.Dot)
-                            .SetColour(OxyColors.DarkRed)))
+                            .SetColor(OxyColors.DarkRed)))
                     .WithLegend()
                     .WithXAxis(a => a
                         .SetTitle("X Data"))

@@ -34,10 +34,10 @@ namespace OxyPlot.Fluent
         }
 
         /// <summary>
-        ///     Sets the marker fill colour.
+        ///     Sets the marker fill color.
         /// </summary>
         /// <param name="marker">The marker to configure.</param>
-        /// <param name="fill">The fill colour.</param>
+        /// <param name="fill">The fill color.</param>
         public static MarkerConfigurator SetFill(this MarkerConfigurator marker, OxyColor fill)
         {
             marker.Fill = fill;
@@ -46,10 +46,10 @@ namespace OxyPlot.Fluent
         }
 
         /// <summary>
-        ///     Sets the marker stroke colour.
+        ///     Sets the marker stroke color.
         /// </summary>
         /// <param name="marker">The marker to configure.</param>
-        /// <param name="stroke">The stroke colour.</param>
+        /// <param name="stroke">The stroke color.</param>
         public static MarkerConfigurator SetStroke(this MarkerConfigurator marker, OxyColor stroke)
         {
             marker.Stroke = stroke;

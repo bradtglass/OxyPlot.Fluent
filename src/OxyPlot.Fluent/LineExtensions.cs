@@ -36,14 +36,14 @@ namespace OxyPlot.Fluent
         }
 
         /// <summary>
-        ///     Sets the line colour.
+        ///     Sets the line color.
         /// </summary>
         /// <param name="line">The line to configure.</param>
-        /// <param name="colour">The colour.</param>
-        public static T SetColour<T>(this T line, OxyColor colour)
+        /// <param name="color">The color.</param>
+        public static T SetColor<T>(this T line, OxyColor color)
             where T : LineConfigurator
         {
-            line.Colour = colour;
+            line.Color = color;
 
             return line;
         }

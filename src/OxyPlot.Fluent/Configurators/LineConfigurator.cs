@@ -11,7 +11,7 @@ namespace OxyPlot.Fluent.Configurators
         /// <summary>
         ///     The value to set the line Color to or <see langword="null" /> to skip configuring this property.
         /// </summary>
-        public OxyColor? Colour { get; set; }
+        public OxyColor? Color { get; set; }
 
 
         /// <summary>
