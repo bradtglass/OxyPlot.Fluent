@@ -1,11 +1,12 @@
 ﻿using JetBrains.Annotations;
-using OxyPlot.Axes;
 
 namespace OxyPlot.Fluent.Configurators
 {
     [PublicAPI]
-    public class AxisTickConfigurator : LineConfigurator
+    public sealed class AxisTickConfigurator : LineConfigurator
     {
         public double? TickSize { get; set; }
+
+        public double? Step { get; set; }
     }
 }

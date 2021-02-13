@@ -5,7 +5,7 @@ using JetBrains.Annotations;
 namespace OxyPlot.Fluent.Configurators
 {
     [PublicAPI]
-    public class FigureConfigurator : IFluentInterface
+    public sealed class FigureConfigurator : IFluentInterface
     {
         public string? Title { get; set; }
 

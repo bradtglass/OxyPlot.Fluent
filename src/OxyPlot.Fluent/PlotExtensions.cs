@@ -6,6 +6,9 @@ using OxyPlot.Fluent.Configurators;
 
 namespace OxyPlot.Fluent
 {
+    /// <summary>
+    ///     Extension methods for configuring plots.
+    /// </summary>
     [PublicAPI]
     public static class PlotExtensions
     {
@@ -14,7 +17,7 @@ namespace OxyPlot.Fluent
         /// </summary>
         /// <param name="plot">The plot to configure.</param>
         /// <param name="title">The new title.</param>
-        public static PlotConfigurator WithTitle(this PlotConfigurator plot, string? title)
+        public static PlotConfigurator SetTitle(this PlotConfigurator plot, string title)
         {
             plot.Title = title;
 
@@ -98,5 +101,31 @@ namespace OxyPlot.Fluent
         /// <param name="configure">Configures the axis.</param>
         public static PlotConfigurator WithYAxis(this PlotConfigurator plot, Action<AxisConfigurator>? configure = null)
             => plot.WithYAxis(false, configure);
+
+        /// <summary>
+        ///     Configures the plot to show a legend.
+        /// </summary>
+        /// <param name="plot">The plot to configure.</param>
+        /// <param name="configure">Configures the legend.</param>
+        public static PlotConfigurator WithLegend(this PlotConfigurator plot,
+            Action<LegendConfigurator>? configure = null)
+        {
+            plot.Legend ??= new LegendConfigurator();
+
+            configure?.Invoke(plot.Legend);
+
+            return plot;
+        }
+
+        /// <summary>
+        ///     Configures the plot to not show a legend.
+        /// </summary>
+        /// <param name="plot">The plot to configure.</param>
+        public static PlotConfigurator WithoutLegend(this PlotConfigurator plot)
+        {
+            plot.Legend = null;
+
+            return plot;
+        }
     }
 }

@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Linq;
 using JetBrains.Annotations;
 using OxyPlot.Axes;
 
 namespace OxyPlot.Fluent.Configurators
 {
     [PublicAPI]
-    public class AxisConfigurator : IFluentInterface
+    public sealed class AxisConfigurator : IFluentInterface
     {
         public AxisConfigurator(AxisDirection direction, bool isSecondary)
         {
@@ -22,15 +21,15 @@ namespace OxyPlot.Fluent.Configurators
 
         public double? Maximum { get; set; }
 
-        public double TickLabelRotation { get; set; }
+        public double? LabelAngle { get; set; }
 
-        public string? TickLabelFormat { get; set; }
+        public string? LabelFormat { get; set; }
 
         public string? Title { get; set; }
 
-        public AxisStepConfigurator? MajorTicks { get; set; }
+        public AxisTickConfigurator? MajorTicks { get; set; }
 
-        public AxisStepConfigurator? MinorTicks { get; set; }
+        public AxisTickConfigurator? MinorTicks { get; set; }
 
         public CustomGridlinesConfigurator? CustomGridlines { get; set; }
 
@@ -41,12 +40,15 @@ namespace OxyPlot.Fluent.Configurators
             LinearAxis axis = new()
             {
                 Position = GetPosition(),
-                Angle = TickLabelRotation,
-                Title = Title
+                Title = Title,
+                Key = $"{Direction}:{(IsSecondary ? "Secondary" : "Primary")}",
+                StringFormat = LabelFormat
             };
 
             ConfiguratorHelper.SetIfNotNull(Minimum, m => axis.Minimum = m);
             ConfiguratorHelper.SetIfNotNull(Maximum, m => axis.Maximum = m);
+            ConfiguratorHelper.SetIfNotNull(LabelAngle, a => axis.Angle = a);
+            ConfiguratorHelper.SetIfNotNull(TickStyle, s => axis.TickStyle = s);
 
             if (MajorTicks != null)
                 ConfigureTicks(axis, MajorTicks,
@@ -80,10 +82,10 @@ namespace OxyPlot.Fluent.Configurators
             if (gridlines.Ticks == null)
                 return;
 
-            axis.ExtraGridlines = gridlines.Ticks.ToArray();
+            axis.ExtraGridlines = gridlines.Ticks;
         }
 
-        private void ConfigureTicks(LinearAxis axis, AxisStepConfigurator ticks,
+        private void ConfigureTicks(LinearAxis axis, AxisTickConfigurator ticks,
             Action<LinearAxis, OxyColor> gridColourSetter,
             Action<LinearAxis, double> gridThicknessSetter,
             Action<LinearAxis, LineStyle> gridStyleSetter,

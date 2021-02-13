@@ -12,5 +12,10 @@ namespace OxyPlot.Fluent.Configurators
         public string? Title { get; set; }
 
         public abstract Series.Series Build();
+
+        protected void ConfigureSeries(Series.Series series)
+        {
+            series.Title = Title;
+        }
     }
 }

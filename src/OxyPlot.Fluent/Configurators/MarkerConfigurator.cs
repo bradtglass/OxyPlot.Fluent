@@ -3,7 +3,7 @@
 namespace OxyPlot.Fluent.Configurators
 {
     [PublicAPI]
-    public class MarkerConfigurator : IFluentInterface
+    public sealed class MarkerConfigurator : IFluentInterface
     {
         public MarkerType? Type { get; set; }
 
