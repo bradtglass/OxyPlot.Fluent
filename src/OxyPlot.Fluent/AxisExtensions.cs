@@ -5,6 +5,9 @@ using OxyPlot.Fluent.Configurators;
 
 namespace OxyPlot.Fluent
 {
+    /// <summary>
+    ///     Extension methods for configuring axes.
+    /// </summary>
     [PublicAPI]
     public static class AxisExtensions
     {

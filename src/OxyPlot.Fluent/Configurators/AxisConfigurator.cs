@@ -4,37 +4,79 @@ using OxyPlot.Axes;
 
 namespace OxyPlot.Fluent.Configurators
 {
+/// <summary>
+/// Configuration options for an <see cref="Axis"/>.
+/// </summary>
     [PublicAPI]
     public sealed class AxisConfigurator : IFluentInterface
     {
+        /// <summary>
+        /// Instantiates a new <see cref="AxisConfigurator"/>.
+        /// </summary>
         public AxisConfigurator(AxisDirection direction, bool isSecondary)
         {
             Direction = direction;
             IsSecondary = isSecondary;
         }
 
+        /// <summary>
+        /// The direction of the axis to configure.
+        /// </summary>
         public AxisDirection Direction { get; }
 
+        /// <summary>
+        /// A <see langword="bool"/> indicating if the axis is to be used as the secondary axis for a plot (<see cref="AxisPosition.Right"/> or <see cref="AxisPosition.Top"/>).
+        /// </summary>
         public bool IsSecondary { get; }
 
+        /// <summary>
+        /// The value to set <see cref="Axis.Minimum"/> to or <see langword="null"/> to skip configuring this property.
+        /// </summary>
         public double? Minimum { get; set; }
 
+        /// <summary>
+        /// The value to set <see cref="Axis.Maximum"/> to or <see langword="null"/> to skip configuring this property.
+        /// </summary>
         public double? Maximum { get; set; }
 
+        /// <summary>
+        /// The value to set <see cref="Axis.Angle"/> to or <see langword="null"/> to skip configuring this property.
+        /// </summary>
         public double? LabelAngle { get; set; }
 
+        /// <summary>
+        /// The value to set <see cref="Axis.StringFormat"/> to or <see langword="null"/> to skip configuring this property.
+        /// </summary>
         public string? LabelFormat { get; set; }
-
+        
+        /// <summary>
+        /// The value to set <see cref="Axis.Title"/> to or <see langword="null"/> to skip configuring this property.
+        /// </summary>
         public string? Title { get; set; }
 
+        /// <summary>
+        /// The configuration for the MajorTicks or <see langword="null"/> to skip configuration for it.
+        /// </summary>
         public AxisTickConfigurator? MajorTicks { get; set; }
 
+        /// <summary>
+        /// The configuration for the MinorTicks or <see langword="null"/> to skip configuration for it.
+        /// </summary>
         public AxisTickConfigurator? MinorTicks { get; set; }
 
+        /// <summary>
+        /// The configuration for the <see cref="Axis.ExtraGridlines"/> or <see langword="null"/> to skip configuration for it.
+        /// </summary>
         public CustomGridlinesConfigurator? CustomGridlines { get; set; }
 
+        /// <summary>
+        /// The value to set <see cref="Axis.TickStyle"/> to or <see langword="null"/> to skip configuring this property.
+        /// </summary>
         public TickStyle? TickStyle { get; set; }
 
+        /// <summary>
+        /// Creates and configures an <see cref="Axis"/> specified by the options in this <see cref="AxisConfigurator"/>.
+        /// </summary>
         public Axis Build()
         {
             LinearAxis axis = new()

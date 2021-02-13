@@ -4,20 +4,37 @@ using OxyPlot.Series;
 
 namespace OxyPlot.Fluent.Configurators
 {
+    
+    /// <summary>
+    /// Configuration options for a <see cref="LineSeries"/>.
+    /// </summary>
     [PublicAPI]
     public class LineSeriesConfigurator : SeriesConfigurator
     {
+        /// <summary>
+        /// Creates a new <see cref="LineSeries"/> with the provided <paramref name="data"/>.
+        /// </summary>
         public LineSeriesConfigurator(IEnumerable<DataPoint> data)
         {
             Data = data;
         }
 
+        /// <summary>
+        /// The configuration for the series Line or <see langword="null"/> to skip configuration for it.
+        /// </summary>
         public LineConfigurator? Line { get; set; }
 
+        /// <summary>
+        /// The configuration for the series Marker or <see langword="null"/> to skip configuration for it.
+        /// </summary>
         public MarkerConfigurator? Marker { get; set; }
 
+        /// <summary>
+        /// The series data.
+        /// </summary>
         public IEnumerable<DataPoint> Data { get; }
 
+        /// <inheritdoc/>
         public override Series.Series Build()
         {
             LineSeries series = new();
