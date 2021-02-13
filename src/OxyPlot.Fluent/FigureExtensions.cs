@@ -11,7 +11,7 @@ namespace OxyPlot.Fluent
     public static class FigureExtensions
     {
         /// <summary>
-        /// Sets the figure title.
+        ///     Sets the figure title.
         /// </summary>
         /// <param name="figure">The figure to configure.</param>
         /// <param name="title">The title.</param>
@@ -21,7 +21,7 @@ namespace OxyPlot.Fluent
 
             return figure;
         }
-        
+
         /// <summary>
         ///     Configures the figure for multiple plots in a grid format. Equivalent to subplot or tiledlayout in MATLAB.
         /// </summary>

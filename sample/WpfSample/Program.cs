@@ -28,7 +28,7 @@ namespace WpfSample
                             .SetStyle(LineStyle.Dot)
                             .SetColour(OxyColors.DarkRed)))
                     .WithLegend()
-                    .WithXAxis(a=>a
+                    .WithXAxis(a => a
                         .SetTitle("X Data"))
                     .WithYAxis(a => a
                         .SetTitle("(values)")

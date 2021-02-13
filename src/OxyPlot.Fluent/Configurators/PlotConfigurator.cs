@@ -8,34 +8,36 @@ using OxyPlot.Series;
 namespace OxyPlot.Fluent.Configurators
 {
     /// <summary>
-    /// Configuration options for a <see cref="Plot"/>/<see cref="PlotModel"/>.
+    ///     Configuration options for a <see cref="Plot" />/<see cref="PlotModel" />.
     /// </summary>
     [PublicAPI]
     public sealed class PlotConfigurator : IFluentInterface
     {
         /// <summary>
-        /// The configurations for each axis. If the configuration for a required axis does not exist then it will not be configured but will still be created in the <see cref="PlotModel"/>.
+        ///     The configurations for each axis. If the configuration for a required axis does not exist then it will not be
+        ///     configured but will still be created in the <see cref="PlotModel" />.
         /// </summary>
         public List<AxisConfigurator> Axes { get; } = new();
 
         /// <summary>
-        /// The value to set <see cref="PlotModel.Title"/> to or <see langword="null"/> to skip configuring this property.
+        ///     The value to set <see cref="PlotModel.Title" /> to or <see langword="null" /> to skip configuring this property.
         /// </summary>
         public string? Title { get; set; }
 
-        
+
         /// <summary>
-        /// The configurations for each <see cref="OxyPlot.Series.Series"/> to include in the <see cref="Plot"/>.
+        ///     The configurations for each <see cref="OxyPlot.Series.Series" /> to include in the <see cref="Plot" />.
         /// </summary>
         public List<SeriesConfigurator> Series { get; } = new();
 
         /// <summary>
-        /// The configuration for the Legend or <see langword="null"/> to not show a legend.
+        ///     The configuration for the Legend or <see langword="null" /> to not show a legend.
         /// </summary>
         public LegendConfigurator? Legend { get; set; }
 
         /// <summary>
-        /// Creates and configures an <see cref="PlotModel"/> specified by the options in this <see cref="PlotConfigurator"/>.
+        ///     Creates and configures an <see cref="PlotModel" /> specified by the options in this <see cref="PlotConfigurator" />
+        ///     .
         /// </summary>
         public PlotModel Build()
         {

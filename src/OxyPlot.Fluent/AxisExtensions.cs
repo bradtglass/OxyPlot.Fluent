@@ -22,7 +22,7 @@ namespace OxyPlot.Fluent
 
             return axis;
         }
-        
+
         /// <summary>
         ///     Sets the tick style for the axis.
         /// </summary>

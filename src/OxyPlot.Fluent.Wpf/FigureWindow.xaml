@@ -16,7 +16,7 @@
                    TextWrapping="Wrap"
                    FontSize="14" FontWeight="Bold"
                    Text="{Binding Title}" />
-        
+
         <ItemsControl ItemsSource="{Binding Plots}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
