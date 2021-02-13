@@ -20,7 +20,6 @@ using static Nuke.Common.Tools.DotNet.DotNetTasks;
     GitHubActionsImage.WindowsLatest,
     AutoGenerate = true,
     OnPushBranches = new[] {"main", "develop"},
-    OnPullRequestBranches = new[] {"develop"},
     ImportGitHubTokenAs = "GITHUB_TOKEN",
     InvokedTargets = new[] {nameof(Clean), nameof(GithubPush)})]
 class Build : NukeBuild
