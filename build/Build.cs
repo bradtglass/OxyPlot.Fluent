@@ -30,7 +30,8 @@ class Build : NukeBuild
     /// - JetBrains Rider            https://nuke.build/rider
     /// - Microsoft VisualStudio     https://nuke.build/visualstudio
     /// - Microsoft VSCode           https://nuke.build/vscode
-    public static int Main() => Execute<Build>(x => x.Compile);
+    public static int Main() => Execute<Build>(x => x.Clean,
+        x => x.GithubPush);
 
     [Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
     readonly Configuration Configuration = IsLocalBuild ? Configuration.Debug : Configuration.Release;
@@ -84,6 +85,7 @@ class Build : NukeBuild
                 .SetAssemblyVersion(GitVersion.AssemblySemVer)
                 .SetFileVersion(GitVersion.AssemblySemFileVer)
                 .SetInformationalVersion(GitVersion.InformationalVersion)
+                .SetVersion(GitVersion.NuGetVersionV2)
                 .SetOutputDirectory(ArtifactsDirectory)
                 .EnableNoBuild()
                 .CombineWith(GetPackageProjects(), (s, p) => s
@@ -106,9 +108,6 @@ class Build : NukeBuild
 
     static Expression<Func<bool>> IsCiBuild()
         => () => GitHubActions.Instance != null;
-
-    Target CiBuild => _ => _
-        .DependsOn(Clean, GithubPush);
 
     IEnumerable<AbsolutePath> GetPackageProjects()
         => SourceDirectory.GlobFiles("**/**.csproj");
