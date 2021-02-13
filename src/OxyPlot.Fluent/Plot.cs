@@ -10,11 +10,10 @@ namespace OxyPlot.Fluent
     [PublicAPI]
     public sealed class Plot
     {
-        internal Plot(PlotModel model, Cell cell, string? title)
+        internal Plot(PlotModel model, Cell cell)
         {
             Model = model;
             Cell = cell;
-            Title = title;
         }
 
         /// <summary>
@@ -26,11 +25,6 @@ namespace OxyPlot.Fluent
         /// The location to display this plot in a grid.
         /// </summary>
         public Cell Cell { get; }
-        
-        /// <summary>
-        /// The title of this plot.
-        /// </summary>
-        public string? Title { get; }
 
         /// <summary>
         /// Begins the configuration of a new <see cref="Plot"/>.

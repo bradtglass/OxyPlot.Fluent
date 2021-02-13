@@ -38,7 +38,7 @@ namespace OxyPlot.Fluent.Configurators
         /// </summary>
         public Figure Build()
         {
-            IEnumerable<Plot> plots = Plots.Select(p => new Plot(p.Value.Build(), p.Key, p.Value.Title));
+            IEnumerable<Plot> plots = Plots.Select(p => new Plot(p.Value.Build(), p.Key));
 
             return new Figure(plots,
                 Title,

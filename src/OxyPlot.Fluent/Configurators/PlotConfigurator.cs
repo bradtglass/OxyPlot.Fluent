@@ -39,7 +39,10 @@ namespace OxyPlot.Fluent.Configurators
         /// </summary>
         public PlotModel Build()
         {
-            PlotModel model = new();
+            PlotModel model = new()
+            {
+                Title = Title
+            };
 
             List<Tuple<AxisConfigurator, Axis>> axes = Axes.Select(a => new Tuple<AxisConfigurator, Axis>(a, a.Build()))
                 .ToList();
