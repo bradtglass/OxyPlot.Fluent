@@ -1,8 +1,5 @@
 assembly-versioning-scheme: MajorMinorPatch
 branches:
-  feature:
-    mode: ContinuousDeployment
-    tag: 'alpha-{BranchName}'
   develop:
     tag: beta
   release:
@@ -10,6 +7,8 @@ branches:
   master:
     regex: ^master$|^main$
     increment: Minor
+  pull-request:
+    tag: alpha-pr
 ignore:
   sha: []
 merge-message-formats: {}

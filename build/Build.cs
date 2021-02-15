@@ -17,11 +17,12 @@ using static Nuke.Common.Tools.DotNet.DotNetTasks;
 [CheckBuildProjectConfigurations]
 [ShutdownDotNetAfterServerBuild]
 [GitHubActions("Package",
-    GitHubActionsImage.WindowsLatest,
-    AutoGenerate = true,
-    OnPushBranches = new[] {"main", "develop"},
-    ImportGitHubTokenAs = "GITHUB_TOKEN",
-    InvokedTargets = new[] {nameof(Clean), nameof(GithubPush)})]
+               GitHubActionsImage.WindowsLatest,
+               AutoGenerate = true,
+               OnPushBranches = new[] {"main", "develop"},
+               OnPullRequestBranches = new[] {"develop"},
+               ImportGitHubTokenAs = "GITHUB_TOKEN",
+               InvokedTargets = new[] {nameof(Clean), nameof(GithubPush)})]
 class Build : NukeBuild
 {
     /// Support plugins are available for:
