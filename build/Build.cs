@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq.Expressions;
 using Nuke.Common;
 using Nuke.Common.CI;
 using Nuke.Common.CI.GitHubActions;
@@ -17,12 +16,13 @@ using static Nuke.Common.Tools.DotNet.DotNetTasks;
 [CheckBuildProjectConfigurations]
 [ShutdownDotNetAfterServerBuild]
 [GitHubActions("Package",
-               GitHubActionsImage.WindowsLatest,
-               AutoGenerate = true,
-               OnPushBranches = new[] {"main", "develop"},
-               OnPullRequestBranches = new[] {"develop"},
-               ImportGitHubTokenAs = "GITHUB_TOKEN",
-               InvokedTargets = new[] {nameof(Clean), nameof(GithubPush)})]
+    GitHubActionsImage.WindowsLatest,
+    AutoGenerate = true,
+    OnPushBranches = new[] {"main", "develop"},
+    OnPullRequestBranches = new[] {"develop"},
+    ImportGitHubTokenAs = "GITHUB_TOKEN",
+    ImportSecrets = new[] {"NUGET_API_KEY"},
+    InvokedTargets = new[] {nameof(Clean), nameof(GithubPush), nameof(NugetPush)})]
 class Build : NukeBuild
 {
     /// Support plugins are available for:
@@ -31,7 +31,8 @@ class Build : NukeBuild
     /// - Microsoft VisualStudio     https://nuke.build/visualstudio
     /// - Microsoft VSCode           https://nuke.build/vscode
     public static int Main() => Execute<Build>(x => x.Clean,
-        x => x.GithubPush);
+        x => x.GithubPush,
+        x => x.NugetPush);
 
     [Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
     readonly Configuration Configuration = IsLocalBuild ? Configuration.Debug : Configuration.Release;
@@ -94,20 +95,43 @@ class Build : NukeBuild
 
     Target GithubPush => _ => _
         .DependsOn(Pack)
-        .OnlyWhenDynamic(IsCiBuild())
+        .OnlyWhenDynamic(() => IsCiBuild())
         .Executes(() =>
         {
-            IReadOnlyCollection<AbsolutePath> packages = ArtifactsDirectory.GlobFiles("*.nupkg");
+            const string githubPackageSource = @"https://nuget.pkg.github.com/G18SSY/index.json";
+            const string githubTokenVariable = "GITHUB_TOKEN";
 
-            return DotNetNuGetPush(s => s
-                .SetSource(@"https://nuget.pkg.github.com/G18SSY/index.json")
-                .SetApiKey(Environment.GetEnvironmentVariable("GITHUB_TOKEN"))
-                .CombineWith(packages, (s, p) => s
-                    .SetTargetPath(p)));
+            PushNuGetPackages(githubPackageSource, githubTokenVariable);
         });
 
-    static Expression<Func<bool>> IsCiBuild()
-        => () => GitHubActions.Instance != null;
+    Target NugetPush => _ => _
+        .DependsOn(Pack)
+        .OnlyWhenDynamic(() => IsCiBuild() && IsStableOrRelease())
+        .Executes(() =>
+        {
+            const string nugetOrgPackageSource = @"https://api.nuget.org/v3/index.json";
+            const string nugetOrgApiKeyVariable = "NUGET_API_KEY";
+
+            PushNuGetPackages(nugetOrgPackageSource, nugetOrgApiKeyVariable);
+        });
+
+    void PushNuGetPackages(string githubPackageSource, string githubTokenVariable)
+    {
+        IReadOnlyCollection<AbsolutePath> packages = ArtifactsDirectory.GlobFiles("*.nupkg");
+
+        DotNetNuGetPush(s => s
+            .SetSource(githubPackageSource)
+            .SetApiKey(Environment.GetEnvironmentVariable(githubTokenVariable))
+            .CombineWith(packages, (s, p) => s
+                .SetTargetPath(p)));
+    }
+
+    static bool IsCiBuild()
+        => GitHubActions.Instance != null;
+
+    bool IsStableOrRelease()
+        => GitVersion.PreReleaseLabel.Equals("rc", StringComparison.OrdinalIgnoreCase) ||
+           string.IsNullOrEmpty(GitVersion.PreReleaseLabel);
 
     IEnumerable<AbsolutePath> GetPackageProjects()
         => SourceDirectory.GlobFiles("**/**.csproj");
