@@ -1,4 +1,6 @@
-﻿using JetBrains.Annotations;
+﻿using System;
+using System.ComponentModel;
+using JetBrains.Annotations;
 using OxyPlot.Axes;
 
 namespace OxyPlot.Fluent.Configurators
@@ -10,9 +12,31 @@ namespace OxyPlot.Fluent.Configurators
     public sealed class ExtraGridlinesConfigurator : LineConfigurator
     {
         /// <summary>
-        ///     The value to set <see cref="Axis.ExtraGridlines" /> to or <see langword="null" /> to skip configuring this
-        ///     property.
+        ///     The value to set <see cref="Axis.ExtraGridlines" /> to.
         /// </summary>
-        public double[]? Ticks { get; set; }
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        public ConfigurableProperty<double[]?> Ticks { get; } = new();
+
+        /// <summary>
+        ///     Configures the extra gridlines of the target axis.
+        /// </summary>
+        public void Configure(Axis target)
+        {
+            ConfigureLine(target, AxisExtraGridlinesCallbacks);
+
+            switch (State)
+            {
+                case ConfigurationState.NotSet:
+                    return;
+                case ConfigurationState.Include:
+                    Ticks.ApplyIfSet(target, (a, t) => a.ExtraGridlines = t);
+
+                    return;
+                case ConfigurationState.Exclude:
+                    return;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
     }
 }

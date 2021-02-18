@@ -1,44 +1,46 @@
-﻿using JetBrains.Annotations;
+﻿using System.ComponentModel;
+using JetBrains.Annotations;
+using OxyPlot.Axes;
+using OxyPlot.Series;
 
 namespace OxyPlot.Fluent.Configurators
 {
     /// <summary>
-    ///     Configuration options for a <see cref="Series.Series" />.
+    ///     Configuration options for a <see cref="Series" />.
     /// </summary>
     [PublicAPI]
-    public abstract class SeriesConfigurator : IFluentInterface
+    public abstract class SeriesConfigurator<T> : BuildableConfigurator<T, Series.Series>, ISeriesConfigurator
+        where T : Series.Series
     {
         /// <summary>
-        ///     A <see langword="bool" /> indicating if this <see cref="Series.Series" /> should be plotted against a secondary Y
-        ///     axis.
+        ///     The value to set <see cref="Series.Title" /> to.
         /// </summary>
-        public bool UseSecondaryYAxis { get; set; }
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        public ConfigurableProperty<string> Title { get; } = new();
+
+
+        /// <inheritdoc />
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public void Configure(Series.Series target)
+            => base.Configure((T) target);
+
+        /// <inheritdoc />
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public abstract AxisPosition? GetXPosition();
+
+        /// <inheritdoc />
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public abstract AxisPosition? GetYPosition();
 
         /// <summary>
-        ///     A <see langword="bool" /> indicating if this <see cref="Series.Series" /> should be plotted against a secondary X
-        ///     axis.
+        ///     Configures <see cref="Series" /> properties based on the options in this <see cref="SeriesConfigurator{T}" />.
         /// </summary>
-        public bool UseSecondaryXAxis { get; set; }
-
-        /// <summary>
-        ///     The value to set <see cref="Series.Series.Title" /> to or <see langword="null" /> to skip configuring this
-        ///     property.
-        /// </summary>
-        public string? Title { get; set; }
-
-        /// <summary>
-        ///     Creates and configures a <see cref="Series.Series" /> specified by the options in this
-        ///     <see cref="SeriesConfigurator" />.
-        /// </summary>
-        public abstract Series.Series Build();
-
-        /// <summary>
-        ///     Configures <see cref="Series.Series" /> properties based on the options in this <see cref="SeriesConfigurator" />.
-        /// </summary>
-        /// <param name="series"></param>
-        protected void ConfigureSeries(Series.Series series)
+        protected void ConfigureSeries(Series.Series target)
         {
-            series.Title = Title;
+            if (State == ConfigurationState.NotSet)
+                return;
+
+            Title.ApplyIfSet(target, (s, t) => s.Title = t);
         }
     }
 }

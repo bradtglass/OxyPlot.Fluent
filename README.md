@@ -60,3 +60,11 @@ All extension methods for configuring the figure/plot use a restricted set of pr
 | **Set** | `SetTitle()` | Sets a property on the current level |
 | **Unset** | `UnsetTitle()` | Informs the configurator that the property on the current level should not be included |
 | **Use** | `UsePlotGrid()` | Sets one or more properties indirectly (use if setting multiple values or if the method sets a property to only one possible value like `UseSecondaryYAxis()`) |
+
+## Configuration Behaviour
+Configurators can exist in 3 states:
+- `None` - Neither a `With` nor `Without` statement has been made, if the `Configure()` method is invoked the configurator should not change the state of the target
+- `Include` - A `With` statement has been invoked to indicate that this configurator should apply any of it's properties that are in a `Set` state and should invoke all child configurators when `Configure()` is invoked
+- `Exclude` - A `Without` statement has been invoked meaning that the configurator should configure the plot item to be hidden or removed (this state is not valid for all configurators because some items like Series are controlled by another configurator, in this example plot, this may cause an exception)
+
+Configurator properties are bi-state, they can be `Set` or `Unset`. This was previously handled by using `null` for the unset state but it wasn't possible to determine if a reference type property (e.g. `string`) had been explicitly set to `null` or was just in it's initial state.

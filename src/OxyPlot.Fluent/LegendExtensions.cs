@@ -15,11 +15,7 @@ namespace OxyPlot.Fluent
         /// <param name="legend">The legend to configure.</param>
         /// <param name="position">The position.</param>
         public static LegendConfigurator SetPosition(this LegendConfigurator legend, LegendPosition position)
-        {
-            legend.Position = position;
-
-            return legend;
-        }
+            => legend.Set(l => l.Position, position);
 
         /// <summary>
         ///     Sets the legend placement.
@@ -27,10 +23,6 @@ namespace OxyPlot.Fluent
         /// <param name="legend">The legend to configure.</param>
         /// <param name="placement">The placement.</param>
         public static LegendConfigurator SetPlacement(this LegendConfigurator legend, LegendPlacement placement)
-        {
-            legend.Placement = placement;
-
-            return legend;
-        }
+            => legend.Set(l => l.Placement, placement);
     }
 }

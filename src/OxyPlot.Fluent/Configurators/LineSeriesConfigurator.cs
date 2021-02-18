@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System.ComponentModel;
 using JetBrains.Annotations;
 using OxyPlot.Series;
 
@@ -8,57 +8,27 @@ namespace OxyPlot.Fluent.Configurators
     ///     Configuration options for a <see cref="LineSeries" />.
     /// </summary>
     [PublicAPI]
-    public class LineSeriesConfigurator : SeriesConfigurator
+    public class LineSeriesConfigurator : DataPointSeriesConfigurator<LineSeries>
     {
         /// <summary>
-        ///     Creates a new <see cref="LineSeries" /> with the provided <paramref name="data" />.
+        ///     The configuration for the series Line.
         /// </summary>
-        public LineSeriesConfigurator(IEnumerable<DataPoint> data)
-        {
-            Data = data;
-        }
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        public LineConfigurator Line { get; } = new();
 
         /// <summary>
-        ///     The configuration for the series Line or <see langword="null" /> to skip configuration for it.
+        ///     The configuration for the series Marker.
         /// </summary>
-        public LineConfigurator? Line { get; set; }
-
-        /// <summary>
-        ///     The configuration for the series Marker or <see langword="null" /> to skip configuration for it.
-        /// </summary>
-        public MarkerConfigurator? Marker { get; set; }
-
-        /// <summary>
-        ///     The series data.
-        /// </summary>
-        public IEnumerable<DataPoint> Data { get; }
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        public MarkerConfigurator Marker { get; } = new();
 
         /// <inheritdoc />
-        public override Series.Series Build()
+        protected override void ConfigureImplementedProperties(LineSeries target)
         {
-            LineSeries series = new();
-            foreach (DataPoint point in Data)
-                series.Points.Add(point);
+            ConfigureDataPointSeries(target);
 
-            ConfigureSeries(series);
-
-            if (Line != null)
-            {
-                ConfiguratorHelper.SetIfNotNull(Line.Color, c => series.Color = c);
-                ConfiguratorHelper.SetIfNotNull(Line.Thickness, t => series.StrokeThickness = t);
-                ConfiguratorHelper.SetIfNotNull(Line.Style, s => series.LineStyle = s);
-            }
-
-            if (Marker != null)
-            {
-                ConfiguratorHelper.SetIfNotNull(Marker.Type, t => series.MarkerType = t);
-                ConfiguratorHelper.SetIfNotNull(Marker.Fill, f => series.MarkerFill = f);
-                ConfiguratorHelper.SetIfNotNull(Marker.Stroke, s => series.MarkerStroke = s);
-                ConfiguratorHelper.SetIfNotNull(Marker.StrokeThickness, t => series.MarkerStrokeThickness = t);
-                ConfiguratorHelper.SetIfNotNull(Marker.Size, s => series.MarkerSize = s);
-            }
-
-            return series;
+            Line.ConfigureLine(target, LineConfigurator.LineSeriesCallbacks);
+            Marker.ConfigureMarker(target, MarkerConfigurator.LineSeriesCallbacks);
         }
     }
 }

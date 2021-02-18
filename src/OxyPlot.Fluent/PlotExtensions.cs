@@ -109,23 +109,13 @@ namespace OxyPlot.Fluent
         /// <param name="configure">Configures the legend.</param>
         public static PlotConfigurator WithLegend(this PlotConfigurator plot,
             Action<LegendConfigurator>? configure = null)
-        {
-            plot.Legend ??= new LegendConfigurator();
-
-            configure?.Invoke(plot.Legend);
-
-            return plot;
-        }
+            => plot.With(p => p.Legend, configure);
 
         /// <summary>
         ///     Configures the plot to not show a legend.
         /// </summary>
         /// <param name="plot">The plot to configure.</param>
         public static PlotConfigurator WithoutLegend(this PlotConfigurator plot)
-        {
-            plot.Legend = null;
-
-            return plot;
-        }
+            => plot.Without(p => p.Legend);
     }
 }

@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using JetBrains.Annotations;
 
@@ -8,27 +10,30 @@ namespace OxyPlot.Fluent.Configurators
     ///     Configuration options for a <see cref="Figure" /> (one or more plots with a layout).
     /// </summary>
     [PublicAPI]
-    public sealed class FigureConfigurator : IFluentInterface
+    public sealed class FigureConfigurator : Configurator
     {
         /// <summary>
-        ///     The value to set the overall title/window caption to or <see langword="null" /> to skip configuring this property.
+        ///     The value to set the overall title/window caption to.
         /// </summary>
-        public string? Title { get; set; }
-
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        public  ConfigurableProperty<string> Title { get; } = new();
 
         /// <summary>
         ///     The number of rows in the plot grid.
         /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
         public int Rows { get; set; }
 
         /// <summary>
         ///     The number of columns in the plot grid.
         /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
         public int Columns { get; set; }
 
         /// <summary>
         ///     The configured plots to display in the figure grid.
         /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
         public Dictionary<Cell, PlotConfigurator> Plots { get; } = new();
 
         /// <summary>
@@ -36,8 +41,12 @@ namespace OxyPlot.Fluent.Configurators
         /// </summary>
         public Figure Build()
         {
+            if (State == ConfigurationState.NotSet || State == ConfigurationState.Exclude)
+                throw new NotSupportedException($"Invalid configurator state: {State}");
+            
             IEnumerable<Plot> plots = Plots.Select(p => new Plot(p.Value.Build(), p.Key));
 
+            // TODO If title is not set get a default title
             return new Figure(plots,
                 Title,
                 Rows,
