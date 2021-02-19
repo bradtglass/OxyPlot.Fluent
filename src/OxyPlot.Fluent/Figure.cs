@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
 using OxyPlot.Fluent.Configurators;
@@ -10,14 +11,20 @@ namespace OxyPlot.Fluent
     ///     <see href="https://uk.mathworks.com/help/matlab/ref/matlab.ui.figure-properties.html">Figure</see> in MATLAB.
     /// </summary>
     [PublicAPI]
-    public sealed class Figure
+    public sealed class Figure : IDisposable
     {
-        internal Figure(IEnumerable<Plot> plots, string? title, int rows, int columns)
+        private readonly FigureManager.Lifetime lifetime;
+
+        internal Figure(IEnumerable<Plot> plots, string? title, int rows, int columns, string? windowTitle,
+            FigureManager.Lifetime lifetime)
         {
+            this.lifetime = lifetime;
+
             Plots = plots.ToList();
             Title = title;
             Rows = rows;
             Columns = columns;
+            WindowTitle = windowTitle ?? lifetime.DefaultTitle;
         }
 
         /// <summary>
@@ -36,9 +43,20 @@ namespace OxyPlot.Fluent
         public IReadOnlyList<Plot> Plots { get; }
 
         /// <summary>
-        ///     The figure title (can also be used as the window title if displayed in a window).
+        ///     The figure title.
         /// </summary>
         public string? Title { get; }
+
+        /// <summary>
+        ///     The window title/caption.
+        /// </summary>
+        public string WindowTitle { get; }
+
+        /// <inheritdoc />
+        public void Dispose()
+        {
+            lifetime.Dispose();
+        }
 
         /// <summary>
         ///     Begins the configuration of a new <see cref="Figure" />.

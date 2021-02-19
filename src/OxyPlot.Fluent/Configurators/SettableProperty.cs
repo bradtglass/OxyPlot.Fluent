@@ -14,7 +14,7 @@ namespace OxyPlot.Fluent.Configurators
         /// Converts this property to it's value type.
         /// </summary>
         public static implicit operator T?(ConfigurableProperty<T?> property)
-            => property.Value;
+            => property.Value; 
 
         /// <summary>
         /// Sets the <see cref="Value"/> and updates <see cref="IsSet"/>.
@@ -30,6 +30,7 @@ namespace OxyPlot.Fluent.Configurators
         /// </summary>
         public void Unset()
         {
+            Value = default;
             IsSet = false;
         }
 

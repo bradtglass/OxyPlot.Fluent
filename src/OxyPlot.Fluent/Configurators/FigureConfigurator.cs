@@ -19,10 +19,16 @@ namespace OxyPlot.Fluent.Configurators
         }
         
         /// <summary>
-        ///     The value to set the overall title/window caption to.
+        ///     The value to set the overall title to.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         public  ConfigurableProperty<string> Title { get; } = new();
+
+        /// <summary>
+        ///     The value to set the window caption to.
+        /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        public ConfigurableProperty<string> WindowTitle { get; } = new();
 
         /// <summary>
         ///     The number of rows in the plot grid.
@@ -52,11 +58,12 @@ namespace OxyPlot.Fluent.Configurators
             
             IEnumerable<Plot> plots = Plots.Select(p => new Plot(p.Value.Build(), p.Key));
 
-            // TODO If title is not set get a default title
             return new Figure(plots,
-                Title,
+                Title.Value,
                 Rows,
-                Columns);
+                Columns,
+                WindowTitle.Value,
+                FigureManager.Instance.Next());
         }
     }
 }

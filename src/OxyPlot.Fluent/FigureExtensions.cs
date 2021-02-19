@@ -19,6 +19,14 @@ namespace OxyPlot.Fluent
             => figure.Set(f => f.Title, title);
 
         /// <summary>
+        ///     Sets the window caption.
+        /// </summary>
+        /// <param name="figure">The figure to configure.</param>
+        /// <param name="title">The title.</param>
+        public static FigureConfigurator SetWindowTitle(this FigureConfigurator figure, string title)
+            => figure.Set(f => f.WindowTitle, title);
+
+        /// <summary>
         ///     Configures the figure for multiple plots in a grid format. Equivalent to subplot or tiledlayout in MATLAB.
         /// </summary>
         /// <param name="figure">The figure to configure.</param>

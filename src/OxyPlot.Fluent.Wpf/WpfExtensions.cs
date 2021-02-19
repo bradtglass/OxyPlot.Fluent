@@ -13,9 +13,6 @@ namespace OxyPlot.Fluent.Wpf
         ///     Creates a window for the <paramref name="figure" />.
         /// </summary>
         public static Window AsWindow(this Figure figure)
-            => new FigureWindow
-            {
-                DataContext = figure
-            };
+            => new FigureWindow(figure);
     }
 }
