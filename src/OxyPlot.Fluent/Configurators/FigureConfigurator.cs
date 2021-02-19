@@ -12,6 +12,12 @@ namespace OxyPlot.Fluent.Configurators
     [PublicAPI]
     public sealed class FigureConfigurator : Configurator
     {
+        /// <inheritdoc />
+        public FigureConfigurator()
+        {
+            State = ConfigurationState.Include;
+        }
+        
         /// <summary>
         ///     The value to set the overall title/window caption to.
         /// </summary>

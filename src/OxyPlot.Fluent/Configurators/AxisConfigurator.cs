@@ -13,6 +13,12 @@ namespace OxyPlot.Fluent.Configurators
         where T : Axis
     {
         /// <inheritdoc />
+        public AxisConfigurator()
+        {
+            State = ConfigurationState.Include;
+        }
+
+        /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         public AxisPositionConfigurator Position { get; } = new();
         

@@ -12,6 +12,12 @@ namespace OxyPlot.Fluent.Configurators
     public abstract class SeriesConfigurator<T> : BuildableConfigurator<T, Series.Series>, ISeriesConfigurator
         where T : Series.Series
     {
+        /// <inheritdoc />
+        protected SeriesConfigurator()
+        {
+            State = ConfigurationState.Include;
+        }
+        
         /// <summary>
         ///     The value to set <see cref="Series.Title" /> to.
         /// </summary>

@@ -28,7 +28,7 @@ namespace OxyPlot.Fluent
         public static TParent With<TParent, TChild>(this TParent configurator,
             Func<TParent, TChild> childCallback, Action<TChild>? configure)
             where TParent : IConfigurator
-            where TChild : Configurator
+            where TChild : IBiStateConfigurator
         {
             TChild child = childCallback(configurator);
             child.ToIncludedState();
@@ -41,7 +41,7 @@ namespace OxyPlot.Fluent
         public static TParent Without<TParent, TChild>(this TParent configurator,
             Func<TParent, TChild> childCallback)
             where TParent : IConfigurator
-            where TChild : TriStateConfigurator
+            where TChild : ITriStateConfigurator
         {
             TChild child = childCallback(configurator);
             child.ToExcludedState();

@@ -15,10 +15,6 @@ namespace OxyPlot.Fluent
         /// <param name="gridlines">The gridlines to configure.</param>
         /// <param name="ticks">The positions.</param>
         public static ExtraGridlinesConfigurator SetTicks(this ExtraGridlinesConfigurator gridlines, double[] ticks)
-        {
-            gridlines.Ticks = ticks;
-
-            return gridlines;
-        }
+            => gridlines.Set(g => g.Ticks, ticks);
     }
 }

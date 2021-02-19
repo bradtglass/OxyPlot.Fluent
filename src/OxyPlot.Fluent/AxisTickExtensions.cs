@@ -15,11 +15,7 @@ namespace OxyPlot.Fluent
         /// <param name="axisTick">The axis ticks to configure.</param>
         /// <param name="size">The size.</param>
         public static AxisTickConfigurator SetTickSize(this AxisTickConfigurator axisTick, double size)
-        {
-            axisTick.TickSize = size;
-
-            return axisTick;
-        }
+            => axisTick.Set(a => a.TickSize, size);
 
         /// <summary>
         ///     Sets the tick step.
@@ -27,10 +23,6 @@ namespace OxyPlot.Fluent
         /// <param name="axisTick">The axis ticks to configure.</param>
         /// <param name="step">The step.</param>
         public static AxisTickConfigurator SetStep(this AxisTickConfigurator axisTick, double step)
-        {
-            axisTick.Step = step;
-
-            return axisTick;
-        }
+            => axisTick.Set(a => a.Step, step);
     }
 }

@@ -13,6 +13,12 @@ namespace OxyPlot.Fluent.Configurators
     [PublicAPI]
     public sealed class PlotConfigurator : BuildableConfigurator<PlotModel, PlotModel>
     {
+        /// <inheritdoc />
+        public PlotConfigurator()
+        {
+            State = ConfigurationState.Include;
+        }
+        
         /// <summary>
         ///     The configurations for each axis. If the configuration for a required axis does not exist then it will not be
         ///     configured but will still be created in the <see cref="PlotModel" />.

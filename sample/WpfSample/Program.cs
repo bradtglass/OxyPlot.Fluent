@@ -17,7 +17,7 @@ namespace WpfSample
                 .SetTitle("A sample figure")
                 .WithPlot(p => p
                     .SetTitle("Sample Plot")
-                    .WithLine(GetData(), s => s
+                    .WithLineSeries(GetData(), s => s
                         .SetTitle("Weird Data")
                         .WithMarker(m => m
                             .SetType(MarkerType.Circle)
@@ -28,9 +28,9 @@ namespace WpfSample
                             .SetStyle(LineStyle.Dot)
                             .SetColor(OxyColors.DarkRed)))
                     .WithLegend()
-                    .WithXAxis(a => a
+                    .WithXAxis<LinearAxis>(a => a
                         .SetTitle("X Data"))
-                    .WithYAxis(a => a
+                    .WithYAxis<LinearAxis>(a => a
                         .SetTitle("(values)")
                         .SetTickStyle(TickStyle.None)))
                 .Build()
