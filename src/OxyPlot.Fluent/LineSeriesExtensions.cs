@@ -50,5 +50,30 @@ namespace OxyPlot.Fluent
         /// <param name="series">The series to configure.</param>
         public static LineSeriesConfigurator UseSecondaryXAxis(this LineSeriesConfigurator series)
             => series.UseSecondaryXAxis<LineSeriesConfigurator, LineSeries>();
+        
+        /// <summary>
+        /// Configures the <paramref name="series"/> using the information in <paramref name="configurator"/>.
+        /// </summary>
+        /// <param name="series">The <see cref="LineSeries"/> to configure.</param>
+        /// <param name="configurator">The configuration to apply.</param>
+        public static void Configure(this LineSeries series, LineSeriesConfigurator configurator)
+            => configurator.Configure(series);
+
+        /// <summary>
+        /// Configures the <paramref name="series"/> using a configurator with options set in <paramref name="configure"/>.
+        /// </summary>
+        /// <param name="series">The <see cref="LineSeries"/> to configure.</param>
+        /// <param name="configure">Sets options on the configurator to apply to the <paramref name="series"/>.</param>
+        /// <returns>The fully configured configurator that was used to configure <paramref name="series"/>.</returns>
+        public static LineSeriesConfigurator Configure(this LineSeries series,
+            Action<LineSeriesConfigurator> configure)
+        {
+            LineSeriesConfigurator configurator = new();
+            configure(configurator);
+
+            series.Configure(configurator);
+
+            return configurator;
+        }
     }
 }

@@ -94,5 +94,34 @@ namespace OxyPlot.Fluent
             Action<ExtraGridlinesConfigurator>? configure = null)
             where T : Axis =>
             axis.With(a => a.ExtraGridlines, configure);
+
+        /// <summary>
+        /// Configures the <paramref name="axis"/> using the information in <paramref name="configurator"/>.
+        /// </summary>
+        /// <param name="axis">The <see cref="Axis"/> to configure.</param>
+        /// <param name="configurator">The configuration to apply.</param>
+        /// <typeparam name="T">The <see cref="Axis"/> type.</typeparam>
+        public static void Configure<T>(this T axis, AxisConfigurator<T> configurator)
+            where T : Axis
+            => configurator.Configure(axis);
+        
+        /// <summary>
+        /// Configures the <paramref name="axis"/> using a configurator with options set in <paramref name="configure"/>.
+        /// </summary>
+        /// <param name="axis">The <see cref="Axis"/> to configure.</param>
+        /// <param name="configure">Sets options on the configurator to apply to the <paramref name="axis"/>.</param>
+        /// <typeparam name="T">The <see cref="Axis"/> type.</typeparam>
+        /// <returns>The fully configured configurator that was used to configure <paramref name="axis"/>.</returns>
+        public static AxisConfigurator<T> Configure<T>(this T axis,
+            Action<AxisConfigurator<T>> configure)
+            where T : Axis
+        {
+            AxisConfigurator<T> configurator = new();
+            configure(configurator);
+
+            axis.Configure(configurator);
+
+            return configurator;
+        }
     }
 }
