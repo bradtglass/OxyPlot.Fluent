@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace OxyPlot.Fluent.Wpf
+﻿namespace OxyPlot.Fluent.Wpf
 {
     /// <summary>
     ///     A window for displaying one or more plots in a grid.
