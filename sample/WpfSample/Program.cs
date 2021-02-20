@@ -4,7 +4,9 @@ using System.Windows;
 using OxyPlot;
 using OxyPlot.Axes;
 using OxyPlot.Fluent;
+using OxyPlot.Fluent.Configurators;
 using OxyPlot.Fluent.Wpf;
+using OxyPlot.Series;
 
 namespace WpfSample
 {
@@ -26,7 +28,8 @@ namespace WpfSample
                             .SetStrokeThickness(2))
                         .WithLine(l => l
                             .SetStyle(LineStyle.Dot)
-                            .SetColor(OxyColors.DarkRed)))
+                            .SetColor(OxyColors.DarkRed))
+                        .SetAdditional<LineSeriesConfigurator, LineSeries, string>(ls => ls.TrackerFormatString, "A value of {4} at x={2}"))
                     .WithLegend()
                     .WithXAxis<LinearAxis>(a => a
                         .SetTitle("X Data"))
