@@ -49,12 +49,36 @@ namespace OxyPlot.Fluent.Configurators
             return settableProperty;
         }
 
+        /// <summary>
+        ///     Gets a property from the collection.
+        /// </summary>
+        /// <param name="propertyExpression">An expression to select the property on the target type.</param>
+        /// <typeparam name="TProperty">The property type.</typeparam>
+        /// <returns>The inner <see cref="ConfigurableProperty{T}" /> used by the collection or null if the property doesn't exist in the collection.</returns>
+        public ConfigurableProperty<TProperty>? Get<TProperty>(Expression<Func<T, TProperty?>> propertyExpression)
+            => Get<TProperty>(GetPropertyName(GetProperty(propertyExpression)));
+
+        
+        /// <summary>
+        ///     Gets a property from the collection.
+        /// </summary>
+        /// <param name="propertyName">The name of the property.</param>
+        /// <typeparam name="TProperty">The property type.</typeparam>
+        /// <returns>The inner <see cref="ConfigurableProperty{T}" /> used by the collection or null if the property doesn't exist in the collection.</returns>
+        public ConfigurableProperty<TProperty>? Get<TProperty>(string propertyName)
+        {
+            if (properties.TryGetValue(propertyName, out Property property))
+                return (ConfigurableProperty<TProperty>?) property.InnerUntypedProperty;
+
+            return null;
+        }
+        
         private ConfigurableProperty<TProperty> GetOrAdd<TProperty>(string propertyName, Action<T, TProperty?> setter)
         {
             if (properties.TryGetValue(propertyName, out Property untypedProperty))
             {
                 if (untypedProperty is Property<TProperty> property)
-                    return property.SettableProperty;
+                    return property.InnerTypedProperty;
 
                 throw new ArgumentException("The existing property in the collection is for a different property type",
                     nameof(propertyName));
@@ -63,7 +87,7 @@ namespace OxyPlot.Fluent.Configurators
             Property<TProperty> newProperty = new(setter);
             properties.Add(propertyName, newProperty);
 
-            return newProperty.SettableProperty;
+            return newProperty.InnerTypedProperty;
         }
 
         /// <summary>
@@ -130,6 +154,8 @@ namespace OxyPlot.Fluent.Configurators
             public abstract void ApplyIfSet(T target);
 
             public abstract void Unset();
+            
+            public abstract object InnerUntypedProperty { get; }
         }
 
         private class Property<TProperty> : Property
@@ -141,13 +167,15 @@ namespace OxyPlot.Fluent.Configurators
                 this.setter = setter;
             }
 
-            public ConfigurableProperty<TProperty> SettableProperty { get; } = new();
+            public ConfigurableProperty<TProperty> InnerTypedProperty { get; } = new();
 
             public override void ApplyIfSet(T target)
-                => SettableProperty.ApplyIfSet(target, setter);
+                => InnerTypedProperty.ApplyIfSet(target, setter);
 
             public override void Unset()
-                => SettableProperty.Unset();
+                => InnerTypedProperty.Unset();
+
+            public override object InnerUntypedProperty => InnerTypedProperty;
         }
     }
 }

@@ -8,7 +8,7 @@ namespace OxyPlot.Fluent.Configurators
     /// A configurator property that exists in a set or unset state.
     /// </summary>
     [PublicAPI]
-    public class ConfigurableProperty<T>
+    public sealed class ConfigurableProperty<T>
     {
         /// <summary>
         /// Converts this property to it's value type.
@@ -53,6 +53,6 @@ namespace OxyPlot.Fluent.Configurators
         /// <summary>
         /// A <see cref="bool"/> indicating if the value has been explicitly set.
         /// </summary>
-        public bool IsSet { get; set; }
+        public bool IsSet { get; private set; }
     }
 }

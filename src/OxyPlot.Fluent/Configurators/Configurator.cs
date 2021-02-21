@@ -13,6 +13,14 @@ namespace OxyPlot.Fluent.Configurators
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         public ConfigurationState State { get; protected set; }
+
+        /// <inheritdoc />
+        /// <remarks>
+        /// Must be overridden in a derived type if their is not a default constructor.
+        /// </remarks>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public virtual IConfigurator CreateNewInstance()
+            => (IConfigurator) Activator.CreateInstance(GetType());
     }
 
     /// <summary>

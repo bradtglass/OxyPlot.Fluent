@@ -8,4 +8,8 @@
         </Description>
         
     </PropertyGroup>
+    <ItemGroup>
+      <Compile Remove="Configurators\SeriesConfiguratorBase.cs" />
+      <Compile Remove="Configurators\DataPointSeriesConfiguratorBase.cs" />
+    </ItemGroup>
 </Project>

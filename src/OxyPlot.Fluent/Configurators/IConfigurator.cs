@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using JetBrains.Annotations;
 
 namespace OxyPlot.Fluent.Configurators
@@ -25,6 +26,13 @@ namespace OxyPlot.Fluent.Configurators
         ///     </para>
         /// </remarks>
         ConfigurationState State { get; }
+
+        /// <summary>
+        ///     Creates a new instance of the implemented configurator type, duplicating any required properties for the
+        ///     constructor.
+        /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        IConfigurator CreateNewInstance();
     }
 
     /// <summary>
