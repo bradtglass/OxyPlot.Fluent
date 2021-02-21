@@ -10,18 +10,18 @@ namespace OxyPlot.Fluent.Configurators
     /// Combines properties and child configurations of a <see cref="Configurator"/> instance with those of a secondary instance.
     /// </summary>
     [PublicAPI]
-    public class Combinator<TPrimary, TSecondary>
-        where TPrimary : IConfigurator, TSecondary
+    public class Combinator<TPrimary>
+        where TPrimary : IConfigurator
     {
         private readonly TPrimary primary;
-        private readonly TSecondary[] secondaries;
+        private readonly IConfigurator[] secondaries;
 
         /// <summary>
-        /// Creates a new <see cref="Combinator{TPrimary,TSecondary}"/>.
+        /// Creates a new <see cref="Combinator{TPrimary}"/>.
         /// </summary>
         /// <param name="primary">The primary instance, values set on this instance take priority over those on the <paramref name="secondaries"/>.</param>
         /// <param name="secondaries">The instances to apply on top of <paramref name="primary"/>.</param>
-        public Combinator(TPrimary primary, params TSecondary[] secondaries)
+        public Combinator(TPrimary primary, params IConfigurator[] secondaries)
         {
             this.primary = primary;
             this.secondaries = secondaries;
@@ -37,7 +37,7 @@ namespace OxyPlot.Fluent.Configurators
 
             IReadOnlyList<object> from = new[] {primary}
                 .Cast<object>()
-                .Concat(secondaries.Cast<object>())
+                .Concat(secondaries)
                 .ToList();
             
             CombineProperties(combined, from);

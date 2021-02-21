@@ -8,7 +8,7 @@ namespace OxyPlot.Fluent.Configurators
     ///     Configuration options for a <see cref="LineSeries" />.
     /// </summary>
     [PublicAPI]
-    public class LineSeriesConfigurator : DataPointSeriesConfigurator<LineSeries>
+    public class LineSeriesConfigurator : DataPointSeriesConfiguratorBase<LineSeries>
     {
         /// <summary>
         ///     The configuration for the series Line.

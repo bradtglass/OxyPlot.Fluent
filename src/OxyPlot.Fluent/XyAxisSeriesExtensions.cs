@@ -15,7 +15,7 @@ namespace OxyPlot.Fluent
         /// </summary>
         /// <param name="series">The series to configure.</param>
         public static TConfigurator UseSecondaryYAxis<TConfigurator, TSeries>(this TConfigurator series)
-            where TConfigurator : XyAxisSeriesConfigurator<TSeries>
+            where TConfigurator : XyAxisSeriesConfiguratorBase<TSeries>
             where TSeries : XYAxisSeries
             => series.Set(s => s.UseSecondaryYAxis, true);
 
@@ -24,7 +24,7 @@ namespace OxyPlot.Fluent
         /// </summary>
         /// <param name="series">The series to configure.</param>
         public static TConfigurator UseSecondaryXAxis<TConfigurator, TSeries>(this TConfigurator series)
-            where TConfigurator : XyAxisSeriesConfigurator<TSeries>
+            where TConfigurator : XyAxisSeriesConfiguratorBase<TSeries>
             where TSeries : XYAxisSeries
             => series.Set(s => s.UseSecondaryXAxis, true);
     }

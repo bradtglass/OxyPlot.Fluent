@@ -45,6 +45,7 @@ namespace OxyPlot.Fluent.Tests
 
             foreach (Type type in typesInAssembly)
             {
+                // ReSharper disable once ParameterOnlyUsedForPreconditionCheck.Local
                 if (typesInFixture.All(c => c != type))
                     throw new XunitException(
                         $"An instance of the type {type.FullName} was not found on the test fixture");

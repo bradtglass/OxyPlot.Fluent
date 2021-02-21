@@ -14,7 +14,7 @@ namespace OxyPlot.Fluent.Tests
             LegendConfigurator a = new();
             LegendConfigurator b = new();
 
-            Combinator<LegendConfigurator, LegendConfigurator> combinator = new(a, b);
+            Combinator<LegendConfigurator> combinator = new(a, b);
 
             LegendConfigurator combined = combinator.Combine();
 
@@ -34,7 +34,7 @@ namespace OxyPlot.Fluent.Tests
             a.SetAdditional(propertyExpression, format);
 
             // Property only set on a
-            Combinator<LineSeriesConfigurator, LineSeriesConfigurator> combinator = new(a, b);
+            Combinator<LineSeriesConfigurator> combinator = new(a, b);
 
             LineSeriesConfigurator combined = combinator.Combine();
 
@@ -46,7 +46,7 @@ namespace OxyPlot.Fluent.Tests
             // Property set on a AND b, should take the value from a and ignore b
             b.SetAdditional(propertyExpression, "ANOTHER RANDOM VALUE");
 
-            combinator = new Combinator<LineSeriesConfigurator, LineSeriesConfigurator>(a, b);
+            combinator = new Combinator<LineSeriesConfigurator>(a, b);
 
             combined = combinator.Combine();
 
@@ -67,7 +67,7 @@ namespace OxyPlot.Fluent.Tests
             b.Placement.Set(placement);
             a.Position.Set(position);
 
-            Combinator<LegendConfigurator, LegendConfigurator> combinator = new(a, b);
+            Combinator<LegendConfigurator> combinator = new(a, b);
             LegendConfigurator combined = combinator.Combine();
             
             Assert.True(combined.Placement.IsSet);
@@ -87,7 +87,7 @@ namespace OxyPlot.Fluent.Tests
             a.Line.Color.Set(lineColour);
             b.Marker.Type.Set(markerType);
 
-            Combinator<LineSeriesConfigurator, LineSeriesConfigurator> combinator = new(a, b);
+            Combinator<LineSeriesConfigurator> combinator = new(a, b);
             LineSeriesConfigurator combined = combinator.Combine();
             
             Assert.True(combined.Line.Color.IsSet);
@@ -107,7 +107,7 @@ namespace OxyPlot.Fluent.Tests
             a.Line.Color.Set(lineColour);
             b.UseSecondaryXAxis.Set(secondaryX);
 
-            Combinator<LineSeriesConfigurator, XyAxisSeriesConfiguratorBase<>> combinator = new(a, b);
+            Combinator<LineSeriesConfigurator> combinator = new(a, b);
             LineSeriesConfigurator combined = combinator.Combine();
             
             Assert.True(combined.Line.Color.IsSet);
@@ -127,7 +127,7 @@ namespace OxyPlot.Fluent.Tests
             b.Placement.Set(placement);
             a.Placement.Set(ignoredPlacement);
 
-            Combinator<LegendConfigurator, LegendConfigurator> combinator = new(a, b);
+            Combinator<LegendConfigurator> combinator = new(a, b);
             LegendConfigurator combined = combinator.Combine();
             
             Assert.True(combined.Placement.IsSet);

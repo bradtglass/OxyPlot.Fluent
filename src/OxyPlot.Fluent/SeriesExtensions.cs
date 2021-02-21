@@ -15,7 +15,7 @@ namespace OxyPlot.Fluent
         /// <param name="series">The series to configure.</param>
         /// <param name="title">The title.</param>
         public static TConfigurator SetTitle<TConfigurator, TSeries>(this TConfigurator series, string title)
-            where TConfigurator : SeriesConfigurator<TSeries>
+            where TConfigurator : SeriesConfiguratorBase<TSeries>
             where TSeries : Series.Series
             =>
             series.Set(s => s.Title, title);

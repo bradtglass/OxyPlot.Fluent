@@ -1,54 +1,19 @@
-﻿using System.ComponentModel;
-using JetBrains.Annotations;
-using OxyPlot.Axes;
+﻿using JetBrains.Annotations;
 using OxyPlot.Series;
 
 namespace OxyPlot.Fluent.Configurators
 {
     /// <summary>
-    ///     Configuration options for a <see cref="XYAxisSeries" />.
+    ///     Non-generic configuration options for a <see cref="XYAxisSeries" />. For use in styling, to configure a specific
+    ///     series type implement a configurator for it by inheriting from <see cref="XyAxisSeriesConfiguratorBase{T}" />.
     /// </summary>
     [PublicAPI]
-    public abstract class XyAxisSeriesConfigurator<T> : SeriesConfigurator<T>
-        where T : XYAxisSeries
+    public class XyAxisSeriesConfigurator : XyAxisSeriesConfiguratorBase<XYAxisSeries>
     {
-        /// <summary>
-        ///     A <see langword="bool" /> indicating if this <see cref="Series" /> should be plotted against a secondary Y
-        ///     axis.
-        /// </summary>
-        [EditorBrowsable(EditorBrowsableState.Advanced)]
-        public ConfigurableProperty<bool> UseSecondaryYAxis { get; } = new();
-
-        /// <summary>
-        ///     A <see langword="bool" /> indicating if this <see cref="Series" /> should be plotted against a secondary X
-        ///     axis.
-        /// </summary>
-        [EditorBrowsable(EditorBrowsableState.Advanced)]
-        public ConfigurableProperty<bool> UseSecondaryXAxis { get; } = new();
-
-        /// <summary>
-        ///     Configures <see cref="XYAxisSeries" /> properties based on the options in this
-        ///     <see cref="XyAxisSeriesConfigurator{T}" />.
-        /// </summary>
-        protected void ConfigureXyAxisSeries(XYAxisSeries target)
+        /// <inheritdoc />
+        protected override void ConfigureImplementedProperties(XYAxisSeries target)
         {
-            ConfigureSeries(target);
-
-            if (UseSecondaryXAxis.IsSet)
-                target.XAxisKey = AxisPositionConfigurator.CalculateKey(AxisDirection.X, UseSecondaryXAxis);
-
-            if (UseSecondaryYAxis.IsSet)
-                target.YAxisKey = AxisPositionConfigurator.CalculateKey(AxisDirection.Y, UseSecondaryYAxis);
+            ConfigureXyAxisSeries(target);
         }
-
-        /// <inheritdoc />
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public override AxisPosition? GetXPosition()
-            => AxisPositionConfigurator.CalculatePosition(AxisDirection.X, UseSecondaryXAxis);
-
-        /// <inheritdoc />
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public override AxisPosition? GetYPosition()
-            => AxisPositionConfigurator.CalculatePosition(AxisDirection.Y, UseSecondaryYAxis);
     }
 }
