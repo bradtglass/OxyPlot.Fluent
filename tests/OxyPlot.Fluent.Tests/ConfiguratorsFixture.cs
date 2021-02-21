@@ -12,6 +12,9 @@ namespace OxyPlot.Fluent.Tests
         {
             new FigureConfigurator(),
             new PlotConfigurator(),
+            new SeriesConfigurator(),
+            new XyAxisSeriesConfigurator(),
+            new DataPointSeriesConfigurator(),
             new LineSeriesConfigurator(),
             new LegendConfigurator(),
             new LineConfigurator(),
