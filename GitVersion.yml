@@ -1,0 +1,14 @@
+assembly-versioning-scheme: MajorMinorPatch
+branches:
+  develop:
+    tag: beta
+  release:
+    tag: rc
+  master:
+    regex: ^master$|^main$
+    increment: Minor
+  pull-request:
+    tag: alpha-pr
+ignore:
+  sha: []
+merge-message-formats: {}

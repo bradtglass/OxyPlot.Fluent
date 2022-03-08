@@ -1,21 +1,28 @@
 ﻿using JetBrains.Annotations;
+using OxyPlot.Axes;
+using OxyPlot.Series;
 
 namespace OxyPlot.Fluent.Configurators
 {
+    /// <summary>
+    ///     Non-generic configuration options for a <see cref="Series" />. For use in styling, to configure a specific
+    ///     series type implement a configurator for it by inheriting from <see cref="SeriesConfiguratorBase{T}" />.
+    /// </summary>
     [PublicAPI]
-    public class SeriesConfigurator : IFluentInterface
+    public class SeriesConfigurator : SeriesConfiguratorBase<Series.Series>
     {
-        public SeriesConfigurator(PlotConfigurator plot)
+        /// <inheritdoc />
+        protected override void ConfigureImplementedProperties(Series.Series target)
         {
-            Plot = plot;
+            ConfigureSeries(target);
         }
 
-        public PlotConfigurator Plot { get; }
+        /// <inheritdoc />
+        public override AxisPosition? GetXPosition()
+            => null;
 
-        public bool UseSecondaryYAxis { get; set; }
-
-        public bool UseSecondaryXAxis { get; set; }
-
-        public string? Title { get; set; }
+        /// <inheritdoc />
+        public override AxisPosition? GetYPosition()
+            => null;
     }
 }

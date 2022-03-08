@@ -1,29 +1,103 @@
-﻿using JetBrains.Annotations;
+﻿using System;
+using System.ComponentModel;
+using JetBrains.Annotations;
+using OxyPlot.Axes;
 
 namespace OxyPlot.Fluent.Configurators
 {
+    /// <summary>
+    ///     Configuration options for an <see cref="Axis" />.
+    /// </summary>
     [PublicAPI]
-    public class AxisConfigurator : IFluentInterface
+    public class AxisConfigurator<T> : BuildableConfigurator<T, Axis>, IAxisConfigurator
+        where T : Axis
     {
-        public AxisConfigurator(PlotConfigurator plot)
+        /// <inheritdoc />
+        public AxisConfigurator()
         {
-            Plot = plot;
+            State = ConfigurationState.Include;
         }
 
-        public PlotConfigurator Plot { get; }
+        /// <inheritdoc />
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        public AxisPositionConfigurator Position { get; } = new();
+        
+        /// <inheritdoc />
+        public Type ConcreteAxisType { get; } = typeof(T);
 
-        public double? Minimum { get; set; }
+        /// <summary>
+        ///     The value to set <see cref="Axis.Minimum" /> to.
+        /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        public ConfigurableProperty<double> Minimum { get; } = new();
 
-        public double? Maximum { get; set; }
+        /// <summary>
+        ///     The value to set <see cref="Axis.Maximum" /> to.
+        /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        public ConfigurableProperty<double> Maximum { get; } = new();
 
-        public double TickLabelRotation { get; set; }
+        /// <summary>
+        ///     The value to set <see cref="Axis.Angle" /> to.
+        /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        public ConfigurableProperty<double> LabelAngle { get; } = new();
 
-        public string? Title { get; set; }
+        /// <summary>
+        ///     The value to set <see cref="Axis.StringFormat" /> to.
+        /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        public ConfigurableProperty<string?> LabelFormat { get; } = new();
 
-        public AxisStepConfigurator? MajorTicks { get; set; }
+        /// <summary>
+        ///     The value to set <see cref="Axis.Title" /> to.
+        /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        public ConfigurableProperty<string?> Title { get; } = new();
 
-        public AxisStepConfigurator? MinorTicks { get; set; }
+        /// <summary>
+        ///     The configuration for the MajorTicks.
+        /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        public AxisTickConfigurator MajorTicks { get; } = new();
 
-        public CustomGridlinesConfigurator? CustomGridlines { get; set; }
+        /// <summary>
+        ///     The configuration for the MinorTicks.
+        /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        public AxisTickConfigurator MinorTicks { get; } = new();
+
+        /// <summary>
+        ///     The configuration for the <see cref="Axis.ExtraGridlines" />.
+        /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        public ExtraGridlinesConfigurator ExtraGridlines { get; } = new();
+
+        /// <summary>
+        ///     The value to set <see cref="Axis.TickStyle" /> to.
+        /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        public ConfigurableProperty<TickStyle> TickStyle { get; } = new();
+
+        /// <inheritdoc />
+        protected override void ConfigureImplementedProperties(T target)
+        {
+            Title.ApplyIfSet(target, (a, t) => a.Title = t);
+            LabelFormat.ApplyIfSet(target, (a, f) => a.StringFormat = f);
+            Minimum.ApplyIfSet(target, (a, m) => a.Minimum = m);
+            Maximum.ApplyIfSet(target, (a, m) => a.Maximum = m);
+            LabelAngle.ApplyIfSet(target, (a, an) => a.Angle = an);
+            TickStyle.ApplyIfSet(target, (a, s) => a.TickStyle = s);
+
+            MajorTicks.ConfigureMajor(target);
+            MinorTicks.ConfigureMinor(target);
+            ExtraGridlines.Configure(target);
+            Position.Configure(target, true);
+        }
+        
+        /// <inheritdoc />
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public void Configure(Axis target)
+            => base.Configure((T) target);
     }
 }
