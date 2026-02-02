@@ -10,18 +10,15 @@ using Nuke.Common.Tooling;
 using Nuke.Common.Tools.DotNet;
 using Nuke.Common.Tools.GitVersion;
 using Nuke.Common.Utilities.Collections;
-using static Nuke.Common.IO.FileSystemTasks;
 using static Nuke.Common.Tools.DotNet.DotNetTasks;
 
-[CheckBuildProjectConfigurations]
 [ShutdownDotNetAfterServerBuild]
 [GitHubActions("Package",
     GitHubActionsImage.WindowsLatest,
     AutoGenerate = true,
     OnPushBranches = new[] {"main", "develop"},
     OnPullRequestBranches = new[] {"develop"},
-    ImportGitHubTokenAs = "GITHUB_TOKEN",
-    ImportSecrets = new[] {"NUGET_API_KEY"},
+    ImportSecrets = new[] {"GITHUB_TOKEN", "NUGET_API_KEY"},
     InvokedTargets = new[] {nameof(Clean), nameof(GithubPush), nameof(NugetPush)})]
 class Build : NukeBuild
 {
@@ -37,7 +34,7 @@ class Build : NukeBuild
     [Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
     readonly Configuration Configuration = IsLocalBuild ? Configuration.Debug : Configuration.Release;
 
-    [GitVersion(Framework = "netcoreapp3.1")] readonly GitVersion GitVersion;
+    [GitVersion(Framework = "net10.0")] readonly GitVersion GitVersion;
 
     [Solution] readonly Solution Solution;
 
@@ -51,9 +48,9 @@ class Build : NukeBuild
         .Before(Restore)
         .Executes(() =>
         {
-            SourceDirectory.GlobDirectories("**/bin", "**/obj").ForEach(DeleteDirectory);
-            TestsDirectory.GlobDirectories("**/bin", "**/obj").ForEach(DeleteDirectory);
-            EnsureCleanDirectory(ArtifactsDirectory);
+            SourceDirectory.GlobDirectories("**/bin", "**/obj").ForEach(x => x.DeleteDirectory());
+            TestsDirectory.GlobDirectories("**/bin", "**/obj").ForEach(x => x.DeleteDirectory());
+            ArtifactsDirectory.CreateOrCleanDirectory();
         });
 
     Target Restore => _ => _

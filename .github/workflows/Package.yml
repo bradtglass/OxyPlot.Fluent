@@ -30,9 +30,16 @@ jobs:
     name: windows-latest
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v1
-      - name: Run './build.cmd Clean GithubPush NugetPush'
+      - uses: actions/checkout@v6
+      - name: 'Cache: .nuke/temp, ~/.nuget/packages'
+        uses: actions/cache@v4
+        with:
+          path: |
+            .nuke/temp
+            ~/.nuget/packages
+          key: ${{ runner.os }}-${{ hashFiles('**/global.json', '**/*.csproj', '**/Directory.Packages.props') }}
+      - name: 'Run: Clean, GithubPush, NugetPush'
         run: ./build.cmd Clean GithubPush NugetPush
         env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-            NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
