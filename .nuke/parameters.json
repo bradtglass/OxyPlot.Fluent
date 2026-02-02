@@ -1,3 +1,1 @@
-{
-  "$schema": "./build.schema.json"
-}
+{"$schema": "https://raw.githubusercontent.com/nuke-build/nuke/master/source/Nuke.Common/nuke.schema.json", "Solution": "OxyPlot.Fluent.sln"}
