@@ -3,6 +3,8 @@ using OxyPlot.Fluent.Configurators;
 
 namespace OxyPlot.Fluent
 {
+    using Legends;
+
     /// <summary>
     ///     Extension methods for configuring line series.
     /// </summary>

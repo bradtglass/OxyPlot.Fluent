@@ -44,7 +44,9 @@ namespace OxyPlot.Fluent.Configurators
         protected void ConfigureSeries(Series.Series target)
         {
             if (State == ConfigurationState.NotSet)
+            {
                 return;
+            }
 
             Title.ApplyIfSet(target, (s, t) => s.Title = t);
         }

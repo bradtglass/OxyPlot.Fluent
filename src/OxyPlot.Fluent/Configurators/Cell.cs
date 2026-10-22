@@ -1,5 +1,4 @@
-﻿#pragma warning disable 1572 Invalid warning for XML docs for positional properties (https: //github.com/dotnet/roslyn/issues/44571)
-namespace OxyPlot.Fluent.Configurators
+﻿namespace OxyPlot.Fluent.Configurators
 {
     /// <summary>
     ///     A 2D position in a unit grid.
