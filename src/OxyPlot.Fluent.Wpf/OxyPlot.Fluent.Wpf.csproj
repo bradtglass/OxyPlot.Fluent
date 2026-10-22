@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
     <PropertyGroup>
-        <TargetFrameworks>netcoreapp3.1;net45</TargetFrameworks>
+        <TargetFrameworks>dotnet10;net462</TargetFrameworks>
         <UseWpf>true</UseWpf>
 
         <PackageTags>$(CommonPackageTags);WPF</PackageTags>
@@ -12,7 +12,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="OxyPlot.Wpf" Version="2.0.0" />
+      <PackageReference Include="OxyPlot.Wpf" Version="$(OxyPlotVersion)" />
     </ItemGroup>
 
     <ItemGroup>
