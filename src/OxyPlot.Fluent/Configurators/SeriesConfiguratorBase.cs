@@ -19,7 +19,7 @@ namespace OxyPlot.Fluent.Configurators
         }
 
         /// <summary>
-        ///     The value to set <see cref="Series.Title" /> to.
+        ///     The value to set the <see cref="Series"/> title to.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         public ConfigurableProperty<string> Title { get; } = new();

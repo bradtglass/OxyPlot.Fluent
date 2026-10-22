@@ -6,6 +6,8 @@ using Xunit;
 
 namespace OxyPlot.Fluent.Tests
 {
+    using Legends;
+
     public class CombinatorTests
     {
         [Fact]
@@ -27,7 +29,7 @@ namespace OxyPlot.Fluent.Tests
         {
             LineSeriesConfigurator a = new();
             LineSeriesConfigurator b = new();
-            
+
             Expression<Func<LineSeries, string?>> propertyExpression = ls=>ls.LabelFormatString;
             const string format = "ABC";
 
@@ -42,7 +44,7 @@ namespace OxyPlot.Fluent.Tests
             Assert.NotNull(combinedProperty);
             Assert.True(combinedProperty!.IsSet);
             Assert.Equal(format, combinedProperty.Value);
-            
+
             // Property set on a AND b, should take the value from a and ignore b
             b.SetAdditional(propertyExpression, "ANOTHER RANDOM VALUE");
 
@@ -69,7 +71,7 @@ namespace OxyPlot.Fluent.Tests
 
             Combinator<LegendConfigurator> combinator = new(a, b);
             LegendConfigurator combined = combinator.Combine();
-            
+
             Assert.True(combined.Placement.IsSet);
             Assert.True(combined.Position.IsSet);
             Assert.Equal(placement, combined.Placement.Value);
@@ -89,7 +91,7 @@ namespace OxyPlot.Fluent.Tests
 
             Combinator<LineSeriesConfigurator> combinator = new(a, b);
             LineSeriesConfigurator combined = combinator.Combine();
-            
+
             Assert.True(combined.Line.Color.IsSet);
             Assert.True(combined.Marker.Type.IsSet);
             Assert.Equal(lineColour, combined.Line.Color.Value);
@@ -109,7 +111,7 @@ namespace OxyPlot.Fluent.Tests
 
             Combinator<LineSeriesConfigurator> combinator = new(a, b);
             LineSeriesConfigurator combined = combinator.Combine();
-            
+
             Assert.True(combined.Line.Color.IsSet);
             Assert.True(combined.UseSecondaryXAxis.IsSet);
             Assert.Equal(lineColour, combined.Line.Color.Value);
@@ -129,7 +131,7 @@ namespace OxyPlot.Fluent.Tests
 
             Combinator<LegendConfigurator> combinator = new(a, b);
             LegendConfigurator combined = combinator.Combine();
-            
+
             Assert.True(combined.Placement.IsSet);
             Assert.Equal(placement, combined.Placement.Value);
         }
